@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/player-box.css">
+  <link rel="stylesheet" href="css/score-bar.css">
+  <link rel="stylesheet" href="css/spectator-box.css">
+  <title>nsHUD</title>
+</head>
+
+<body>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <div id="score_bar">
+    <div id="team_left_avatar"><img src="icons/no_symbol.png"></div>
+    <div class="team-name" id="team_name_left">Team1</div>
+    <div class="score-team" id="score_team_left">0</div>
+    <div id="time">0:00</div>
+    <div class="score-team" id="score_team_right">0</div>
+    <div class="team-name" id="team_name_right">Team2</div>
+    <div id="team_right_avatar"><img src="icons/no_symbol.png"></div>
+    <div id="defuse"></div>
+  </div>
+
+  <div class="spectator-box" id="spectator_box">
+    <div id="spec_avatar"><img src="" alt=""></div>
+    <div id="spec_row_one" class="spectator-box-row one">
+      <div id="spec_name"></div>
+      <div id="spec_round_kills"></div>
+      <div id="spec_defuse_bomb"></div>
+      <div id="spec_taser"></div>
+      <div id="spec_n0"></div>
+      <div id="spec_n1"></div>
+      <div id="spec_n2"></div>
+      <div id="spec_n3"></div>
+    </div>
+    <div class="spectator-box-row two">
+      <div id="spec_health"></div>
+      <div id="spec_kevlar"></div>
+      <div class="K" id="spec_K">K</div>
+      <div id="spec_kills"></div>
+      <div class="A" id="spec_A">A</div>
+      <div id="spec_assists"></div>
+      <div class="D" id="spec_D">D</div>
+      <div id="spec_deaths"></div>
+      <div id="spec_ammo"></div>
+    </div>
+  </div>
+
+
+  <ul id="team_left" class="team-list left"></ul>
+  <ul id="team_right" class="team-list right"></ul>
+
+  <p id=gsi_view></p>
+  <script src="js/colors.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/CountDownTimer.js"></script>
+  <script src="js/roundTimer.js"></script>
+  <script src="js/getIcon.js"></script>
+  <script src="js/playerBox.js"></script>
+  <script src="js/scoreBar.js"></script>
+  <script src="js/spectatorBox.js"></script>
+  <script src="js/index.js"></script>
+</body>
+
+</html>

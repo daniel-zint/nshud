@@ -1,0 +1,15 @@
+{
+  "name": "nshud",
+  "version": "0.0.1",
+  "description": "A simple spectator hud for CS:GO",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.15",
+    "request": "^2.88.2",
+    "serve-favicon": "^2.5.0",
+    "socket.io": "^4.4.1"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  }
+}

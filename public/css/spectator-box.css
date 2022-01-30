@@ -1,0 +1,70 @@
+.spectator-box {
+    display: grid;
+    grid-template-columns: var(--spectate-avatar-size) 1fr;
+
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom:0;
+    margin-bottom:10px;
+
+    width: 25em;
+
+    font-size: 1.2em;
+}
+
+#spec_avatar {
+    grid-area: 1 / 1 / 3 / 2;
+    background: rgba(0,0,0,0);
+}
+
+#spec_avatar img {
+    width: var(--spectate-avatar-size);
+    height: auto;
+    position: fixed;
+    bottom: 0%;
+}
+
+.spectator-box div {
+    background-color: var(--color_background_default);
+}
+
+.spectator-box-row {
+    height: 1.5em;
+    display: grid;
+    grid-gap: 0.1em;
+    padding: 0.2em;
+    align-content: center;
+}
+
+.spectator-box-row.one {
+    background-color: rgb(0,0,0);
+    position: relative;
+    grid-template-columns: 
+    1fr /* name */
+    2em /* round-kills */
+    2.5em /* defuse/bomb */
+    2em /* taser */
+    repeat(4, 0.8em) /* nades */;
+}
+
+.spectator-box-row.two {
+    grid-template-columns: 
+    3em /* health */
+    4em /* kevlar */
+    repeat(3, 0.8em 1.4em) /* K,D,A */
+    1fr /* ammo */;
+}
+
+.spectator-box-row div {
+    background-color: rgba(0,0,0,0);
+    justify-self: left;
+}
+
+#spec_kills, #spec_assists, #spec_deaths {
+    text-align: left;
+}
+
+#spec_ammo {
+    justify-self: right;
+}

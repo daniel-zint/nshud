@@ -1,0 +1,66 @@
+/* score bar */
+#score_bar {
+    display: grid;
+    grid-template-columns: 
+        3em   /*left avatar*/
+        8em /*left name*/
+        2.5em /*left score*/
+        3.3em /*time*/
+        2.5em /*right score*/
+        8em /*right name*/
+        3em;  /*right avatar*/
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top:0;
+    margin-top:10px;
+    
+    font-size: 1.5em;
+}
+
+.team-name {
+    background-color: var(--color_background_default);
+}
+
+.score-team {
+    background-color: rgb(0,0,0);
+}
+
+#score_bar div {
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+}
+#team_name_left {
+    text-align: right !important;
+    padding-right: 0.3em !important;
+}
+#team_name_right {
+    text-align: left !important;
+    padding-right: 0.3em !important;
+}
+
+#team_left_avatar img, #team_right_avatar img {
+    width: 3em;
+    height: auto;
+    position: absolute;
+    top: 0%;
+}
+
+#team_left_avatar img{
+    left: 0%;
+}
+
+#team_right_avatar img{
+    right: 0%;
+}
+
+/*
+*/
+
+#time {
+    background-color: var(--color_background_default);
+}
+#defuse {
+    grid-column: 4 / 5;
+    background: rgba(0, 0, 0, 0);
+}

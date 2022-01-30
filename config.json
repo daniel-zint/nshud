@@ -1,0 +1,7 @@
+{
+    "team_info": "teaminfo.json",
+
+    "show_team_avatars": true,
+    "show_player_avatars": true,
+    "steam_api_key": ""
+}

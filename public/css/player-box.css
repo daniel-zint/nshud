@@ -1,0 +1,174 @@
+.left {
+    left:0;
+    margin-left:var(--margin-left-right);
+}
+
+.right {
+    right:0;
+    margin-right:var(--margin-left-right);
+}
+
+/* team-list design */
+ul.team-list {
+    width:17em;
+    position: fixed;
+    bottom:0;
+    margin-bottom:10px;
+    list-style-type: none;
+    padding: 0;
+}
+ul.team-list > li {
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.player-container {
+    display: grid;
+    grid-template-columns: 0px 1fr;
+}
+
+.player-container-row {
+    height: 1.2em;
+    display: grid;
+    grid-gap: 0px;
+    padding: 5px;
+    align-items: center;
+}
+
+.left .player-container-row {
+    justify-items: start;
+}
+
+.right .player-container-row {
+    justify-items: end;
+}
+
+.left .player-container-row.one {
+    grid-template-columns: 
+    2em /* health */
+    1fr /* name */
+    2em /* round-kills */
+    5em /* primary */;
+}
+
+.right .player-container-row.one {
+    grid-template-columns: 
+    5em /* primary */
+    2em /* round-kills */
+    1fr /* name */
+    2em /* health */;
+}
+
+.player-container-row.two {
+    background-color: var(--color_background_default);
+    font-size: 0.8em;
+}
+
+.left .player-container-row.two {
+    grid-template-columns: 
+        2.5em /* armor,bomb,kit */
+        4em /* money */
+        4.5em /* K/D */
+        2em /* taser */
+        3em /* nades */
+        1fr /* secondary */;
+}
+
+.right .player-container-row.two {
+    grid-template-columns: 
+        1fr /* secondary */
+        3em /* nades */
+        2em /* taser */
+        4.5em /* K/D */
+        4em /* money */
+        2.5em;/* armor,bomb,kit */
+}
+
+/* align weapons to the 'end' of their container*/
+.left .primary, .left .secondary {
+    justify-self: right;
+}
+
+.right .primary, .right .secondary {
+    justify-self: left;
+}
+
+.money-container {
+    display: grid;
+    grid-template-columns: 0.7em 2.5em;
+    justify-items: stretch;
+}
+
+.kd-container {
+    display: grid;
+    grid-template-columns: 
+    0.8em 
+    1.4em /* this controls the distance between K and D*/ 
+    0.8em
+    1.1em;
+    grid-gap: 0px;
+    justify-items: start;
+}
+
+.K, .D, .A {
+    color: #ffcf77;
+}
+
+.kills, .deaths, .assists {
+    text-align: left;
+}
+
+.nade-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+}
+
+.dollar {
+    color: rgb(0, 100, 0);
+}
+
+
+.avatar {
+    grid-area: 1 / 1 / 3 / 2;
+}
+
+.row1-background {
+    height: 100%;
+    width: 100%;
+    background-color:rgb(1, 68, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.row1-teamcolor {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    transition: width 0.01s;
+    z-index: 1;
+}
+
+.row1-red {
+    height: 100%;
+    width: 100%;
+    background-color: var(--color_damage);
+    position: absolute;
+    transition: width 0.3s;
+    transition-delay: 2s;
+}
+
+.left .row1-teamcolor, .left .row1-red {
+    left:0;
+}
+
+.right .row1-teamcolor, .right .row1-red {
+    right:0;
+}
+
+.player-container-row.one {
+    background-color: rgba(0,0,0,0);
+    position: relative;
+    z-index: 100;
+}

@@ -1,0 +1,10 @@
+{
+    "team1": {
+        "name" : "team 1",
+        "avatar": "avatars/nearlyskillless.jpg"
+    },
+    "team2": {
+        "name" : "team 2",
+        "avatar": "avatars/nearlyskillless.jpg"
+    }
+}
