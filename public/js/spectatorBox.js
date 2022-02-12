@@ -12,7 +12,7 @@ function updateSpectatorBox() {
     }
 
     let name = document.getElementById("spec_name");
-    name.innerHTML = `${p.observer_slot}| ${p.name.substring(0, 15)}`;
+    name.innerHTML = `${p.observer_slot}| ${p.name}`;
 
 
     let td_health = document.getElementById("spec_health");
@@ -34,8 +34,6 @@ function updateSpectatorBox() {
     deaths.innerHTML = "";
     let assists = document.getElementById(`spec_assists`);
     assists.innerHTML = "";
-    let taser = document.getElementById(`spec_taser`);
-    taser.innerHTML = "";
     let nades = [];
     for (let i = 0; i < 4; ++i) {
         nades[i] = document.getElementById(`spec_n${i}`);
@@ -112,14 +110,6 @@ function updateSpectatorBox() {
         }
         nades[i].appendChild(nade_img);
     });
-
-    if ("weapon_taser" in p) {
-        let taser_img = getIcon(p.weapon_taser.name);
-        if (p.weapon_taser.state === "holstered") {
-            taser_img.style.filter = 'brightness(0.8)';
-        }
-        taser.appendChild(taser_img);
-    }
 
     let row1 = document.getElementById("spec_row_one");
     if (p.team === "T") {

@@ -10,7 +10,7 @@
 
 /* team-list design */
 ul.team-list {
-    width:17em;
+    width:18em;
     position: fixed;
     bottom:0;
     margin-bottom:10px;
@@ -46,6 +46,7 @@ ul.team-list > li {
 .left .player-container-row.one {
     grid-template-columns: 
     2em /* health */
+    1em /* id */
     1fr /* name */
     2em /* round-kills */
     5em /* primary */;
@@ -56,6 +57,7 @@ ul.team-list > li {
     5em /* primary */
     2em /* round-kills */
     1fr /* name */
+    1em /* id */
     2em /* health */;
 }
 
@@ -108,6 +110,22 @@ ul.team-list > li {
     1.1em;
     grid-gap: 0px;
     justify-items: start;
+}
+
+.player-id {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+    align-self: baseline;
+}
+
+.player-name {
+    width: 7em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.right .player-name {
+    text-align: right;
 }
 
 .K, .D, .A {

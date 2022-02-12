@@ -44,7 +44,6 @@
     1fr /* name */
     2em /* round-kills */
     2.5em /* defuse/bomb */
-    2em /* taser */
     repeat(4, 0.8em) /* nades */;
 }
 
@@ -59,6 +58,12 @@
 .spectator-box-row div {
     background-color: rgba(0,0,0,0);
     justify-self: left;
+}
+
+#spec_name {
+    width: 11em;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #spec_kills, #spec_assists, #spec_deaths {

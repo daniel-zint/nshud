@@ -114,6 +114,9 @@ function addPlayerBox(observer_slot, right2left = false) {
     let player_name = document.createElement("div");
     player_name.className = "player-name";
     player_name.id = `player_name_${observer_slot}`;
+    let player_id = document.createElement("div");
+    player_id.className = "player-id";
+    player_id.id = `player_id_${observer_slot}`;
     let round_kills = document.createElement("div");
     round_kills.className = "round-kills"
     round_kills.id = `round_kills_${observer_slot}`;
@@ -187,6 +190,7 @@ function addPlayerBox(observer_slot, right2left = false) {
         row1.appendChild(primary);
         row1.appendChild(round_kills);
         row1.appendChild(player_name);
+        row1.appendChild(player_id);
         row1.appendChild(health);
 
         // 2nd row
@@ -199,6 +203,7 @@ function addPlayerBox(observer_slot, right2left = false) {
     } else {
         // 1st row
         row1.appendChild(health);
+        row1.appendChild(player_id);
         row1.appendChild(player_name);
         row1.appendChild(round_kills);
         row1.appendChild(primary);
@@ -264,13 +269,16 @@ function updateHealthBar(id, h, team_t = false, right2left = false) {
 
 function updatePlayerBox(p, right2left = false) {
 
-    let td_player_name = document.getElementById(`player_name_${p.observer_slot}`);
+    let td_player_id = document.getElementById(`player_id_${p.observer_slot}`);
     if (right2left) {
-        td_player_name.innerHTML = `${p.name.substring(0, 12)} |${p.observer_slot}`;
+        td_player_id.innerHTML = `|${p.observer_slot}`;
     } else {
-        td_player_name.innerHTML = `${p.observer_slot}| ${p.name.substring(0, 12)}`;
+        td_player_id.innerHTML = `${p.observer_slot}|`;
     }
 
+    let td_player_name = document.getElementById(`player_name_${p.observer_slot}`);
+    td_player_name.innerHTML = `${p.name}`;
+    
     let td_health = document.getElementById(`health_${p.observer_slot}`);
     if ('health' in p.state) {
         updateHealthBar(p.observer_slot, p.state.health, p.team === "T", right2left);
