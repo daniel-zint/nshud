@@ -240,19 +240,21 @@ addAllPlayerBoxes();
 function updateHealthBar(id, h, team_t = false, right2left = false) {
     let statBar = document.getElementById(`player_${id}_tr2`);
 
-    const baseColor = team_t ? colors.t : colors.ct;
-    const healthBarDir = right2left ? '270deg' : '90deg';
+    const teamColor1 = team_t ? colors.t1 : colors.ct1;
+    const teamColor2 = team_t ? colors.t2 : colors.ct2;
+    const healthBarDir = right2left ? '315deg' : '45deg';
+    const healthBarDirDead = right2left ? '270deg' : '90deg';
 
     let row1_background = document.getElementById(`row1_background_${id}`);
     let row1_teamcolor = document.getElementById(`row1_teamcolor_${id}`);
     let row1_red = document.getElementById(`row1_red_${id}`);
 
-    row1_background.style["background-color"] = colors.player_box;
-    row1_teamcolor.style["background-color"] = baseColor;
+    row1_background.style.background = colors.player_box;
+    row1_teamcolor.style.background = `linear-gradient(${healthBarDir}, ${teamColor1} 30%, ${teamColor2} 100%`;
 
     if (h === 0) {
-        row1_background.style.background = `linear-gradient(${healthBarDir}, ${colors.dead1} 50%, ${colors.dead2} 100%`;
-        statBar.style.background = `linear-gradient(${healthBarDir}, ${colors.dead1} 50%, ${colors.dead2} 100%`;
+        row1_background.style.background = `linear-gradient(${healthBarDirDead}, ${colors.dead1} 50%, ${colors.dead2} 100%`;
+        statBar.style.background = `linear-gradient(${healthBarDirDead}, ${colors.dead1} 50%, ${colors.dead2} 100%`;
         row1_teamcolor.style.visibility = "hidden";
         row1_red.style.visibility = "hidden";
         return;

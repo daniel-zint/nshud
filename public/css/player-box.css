@@ -162,8 +162,9 @@ ul.team-list > li {
 .row1-teamcolor {
     height: 100%;
     width: 100%;
-    background-color: black;
+    background: black;
     position: absolute;
+    overflow: hidden;
     transition: width 0.01s;
     z-index: 1;
 }

@@ -5,7 +5,11 @@
     
     /* team colors */
     --color_ct: rgb(93,121,174);
+    --color_ct1: rgb(93,121,174);
+    --color_ct2: rgb(44, 57, 82);
     --color_t: rgb(222,155,53);
+    --color_t1: rgb(222,155,53);
+    --color_t2: rgb(114, 79, 27);
 
     /* player box colors */
     --color_player_box: var(--color_background_default);
