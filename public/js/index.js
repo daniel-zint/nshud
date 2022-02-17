@@ -55,6 +55,10 @@ socket.on('get-avatar', (data) => {
     }
 });
 
+socket.on("chat-msg", (data) => {
+    receiveMsg(data);
+});
+
 // Print out the whole gamestate
 function treeView(items) {
     let str = '';

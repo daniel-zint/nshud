@@ -9,12 +9,15 @@
   <link rel="stylesheet" href="css/player-box.css">
   <link rel="stylesheet" href="css/score-bar.css">
   <link rel="stylesheet" href="css/spectator-box.css">
+  <link rel="stylesheet" href="css/chat-box.css">
   <title>nsHUD</title>
 </head>
 
 <body>
   <script src="/socket.io/socket.io.js"></script>
 
+  <div id="chat_box"></div>
+  
   <div id="score_bar">
     <div id="team_left_avatar"><img src="icons/no_symbol.png"></div>
     <div class="team-name" id="team_name_left">Team1</div>
@@ -63,6 +66,7 @@
   <script src="js/playerBox.js"></script>
   <script src="js/scoreBar.js"></script>
   <script src="js/spectatorBox.js"></script>
+  <script src="js/chatBox.js"></script>
   <script src="js/index.js"></script>
 </body>
 

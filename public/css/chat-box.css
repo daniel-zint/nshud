@@ -1,0 +1,41 @@
+#chat_box {
+    position: fixed;
+    width: 20%;
+    max-height: 14em;
+    right: 20em;
+    bottom:7em;
+
+    overflow: hidden;
+
+    white-space: normal;
+}
+
+#chat_box .chat-msg {
+    background: var(--color_background_chat);
+    margin: 0;
+    padding: 0.25em;
+    animation: hideAnimation 0.5s ease 4.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes hideAnimation {
+    0%{
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+      }
+}
+
+#chat_box .name {
+    text-shadow: none;
+    font-weight: bold
+}
+
+#chat_box .ct {
+    color: var(--color_ct)
+}
+
+#chat_box .t {
+    color: var(--color_t)
+}

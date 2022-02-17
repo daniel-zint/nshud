@@ -24,6 +24,9 @@
     --color_round_bomb_background: rgb(172, 0, 0);
     --color_round_defuse_background: rgb(8, 153, 3);
 
+    /* chat colors */
+    --color_background_chat: rgba(37, 37, 37, 0.4);
+
     --margin-left-right: 10px;
 
     --spectate-avatar-size: 5em;

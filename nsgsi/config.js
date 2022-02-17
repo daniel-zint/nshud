@@ -10,6 +10,7 @@ class Config {
             this.show_team_avatars = c.show_team_avatars;
             this.show_player_avatars = c.show_player_avatars;
             this.steam_api_key = c.steam_api_key;
+            this.use_telnet = c.use_telnet;
         } catch (error) {
             console.error("ERROR: Cannot read config file. Using default config settings.");
 
@@ -17,6 +18,7 @@ class Config {
             this.show_team_avatars = false;
             this.show_player_avatars = false;
             this.steam_api_key = '';
+            this.use_telnet = false;
         }
 
     }

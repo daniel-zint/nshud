@@ -15,6 +15,7 @@ const teaminfo = require('./nsgsi/teaminfo.js')(config.team_info);
 
 let gamestate = require('./nsgsi/gamestate.js');
 
+const CsgoConsole = require('./nsgsi/csgoconsole.js');
 
 const hudport = process.env.PORT || 8000;
 const csgoport = 3001;
@@ -41,16 +42,16 @@ io.on('connection', (socket) => {
         fs.writeFileSync(`debug/gamestate_${Date.now()}.json`, data);
     });
 
-    socket.on('send-avatar', steamid =>{
-        if(!("steam_api_key" in config)){
+    socket.on('send-avatar', steamid => {
+        if (!("steam_api_key" in config)) {
             return;
         }
         let url = `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${config.steam_api_key}&steamids=${steamid}`;
-        request.get(url, function(error, steamHttpResponse, steamHttpBody) {
+        request.get(url, function (error, steamHttpResponse, steamHttpBody) {
             try {
                 let info = JSON.parse(steamHttpBody);
                 let avatar_url = info.response.players['0'].avatarfull;
-                io.emit('get-avatar', {id: steamid, url: avatar_url});
+                io.emit('get-avatar', { id: steamid, url: avatar_url });
             } catch (error) {
                 console.error(`Error in reading avatar url from steam api. Error: ${error}`);
             }
@@ -60,8 +61,8 @@ io.on('connection', (socket) => {
     io.emit('config', config);
     io.emit('teaminfo', teaminfo);
 
-    //gamestate.update(dummydata, config);
-    //io.emit('dummy-update', gamestate);
+    gamestate.update(dummydata, config);
+    io.emit('csgo-gsi-update', gamestate);
 });
 
 
@@ -105,3 +106,15 @@ http.createServer(function (req, res) {
     }
 
 }).listen(csgoport);
+
+if (config.use_telnet) {
+    const csgoconsole = new CsgoConsole();
+    csgoconsole.on('connection-fail', () => {
+        console.log('try reconnect in 5 seconds');
+        setTimeout(() => { csgoconsole.reconnect() }, 5000);
+    });
+    // send chat messages to hud
+    csgoconsole.on('chat-msg', (data) => {
+        io.emit("chat-msg", data);
+    });
+}
