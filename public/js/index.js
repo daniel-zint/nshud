@@ -23,7 +23,7 @@ socket.on('csgo-gsi-update', (gs) => {
     gamestate = gs;
     // avatars
     gamestate.players.forEach(p => {
-        if (!(p.steam_id in avatars)) {
+        if ((p.steam_id !== -1) && !(p.steam_id in avatars)) {
             socket.emit('send-avatar', p.steam_id);
         }
     });

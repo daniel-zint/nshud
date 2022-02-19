@@ -270,7 +270,6 @@ function updateHealthBar(id, h, team_t = false, right2left = false) {
 }
 
 function updatePlayerBox(p, right2left = false) {
-
     let td_player_id = document.getElementById(`player_id_${p.observer_slot}`);
     if (right2left) {
         td_player_id.innerHTML = `|${p.observer_slot}`;
@@ -280,7 +279,7 @@ function updatePlayerBox(p, right2left = false) {
 
     let td_player_name = document.getElementById(`player_name_${p.observer_slot}`);
     td_player_name.innerHTML = `${p.name}`;
-    
+
     let td_health = document.getElementById(`health_${p.observer_slot}`);
     if ('health' in p.state) {
         updateHealthBar(p.observer_slot, p.state.health, p.team === "T", right2left);
@@ -290,6 +289,7 @@ function updatePlayerBox(p, right2left = false) {
             td_health.innerHTML = p.state.health;
         }
     } else {
+        updateHealthBar(p.observer_slot, 0, p.team === "T", right2left);
         td_health.innerHTML = '';
     }
 
@@ -375,34 +375,42 @@ function updatePlayerBox(p, right2left = false) {
 
     // weapons
     // primary
-    let weapon_primary_img = getIcon(p.weapon_primary.name, right2left);
-    if (p.weapon_primary.state === "holstered") {
-        weapon_primary_img.style.filter = 'brightness(0.8)';
+    if (p.weapon_primary.name !== undefined) {
+        let weapon_primary_img = getIcon(p.weapon_primary.name, right2left);
+        if (p.weapon_primary.state === "holstered") {
+            weapon_primary_img.style.filter = 'brightness(0.8)';
+        }
+        td_primary_weapon.appendChild(weapon_primary_img);
     }
-    td_primary_weapon.appendChild(weapon_primary_img);
 
     // secondary
-    let secondary_img = getIcon(p.weapon_secondary.name, right2left);
-    if (p.weapon_secondary.state === "holstered") {
-        secondary_img.style.filter = 'brightness(0.8)';
+    if (p.weapon_secondary.name !== undefined) {
+        let secondary_img = getIcon(p.weapon_secondary.name, right2left);
+        if (p.weapon_secondary.state === "holstered") {
+            secondary_img.style.filter = 'brightness(0.8)';
+        }
+        secondary.appendChild(secondary_img);
     }
-    secondary.appendChild(secondary_img);
 
     // nades
     p.weapon_grenades.forEach((w, i) => {
-        let nade_img = getIcon(w.name, right2left);
-        if (w.state === "holstered") {
-            nade_img.style.filter = 'brightness(0.8)';
+        if (w.name !== undefined) {
+            let nade_img = getIcon(w.name, right2left);
+            if (w.state === "holstered") {
+                nade_img.style.filter = 'brightness(0.8)';
+            }
+            nades[i].appendChild(nade_img);
         }
-        nades[i].appendChild(nade_img);
     });
 
     if ("weapon_taser" in p) {
-        let taser_img = getIcon(p.weapon_taser.name);
-        if (p.weapon_taser.state === "holstered") {
-            taser_img.style.filter = 'brightness(0.8)';
+        if (p.weapon_taser.name !== undefined) {
+            let taser_img = getIcon(p.weapon_taser.name);
+            if (p.weapon_taser.state === "holstered") {
+                taser_img.style.filter = 'brightness(0.8)';
+            }
+            taser.appendChild(taser_img);
         }
-        taser.appendChild(taser_img);
     }
 }
 

@@ -57,6 +57,9 @@ class GameState {
         if ("phase_countdowns" in gsi) {
             this.phase_countdowns = gsi.phase_countdowns;
         }
+        this.players.forEach(p => {
+            p.clear();
+        });
         if ("allplayers" in gsi) {
             for (const k in gsi.allplayers) {
                 if (!("observer_slot" in gsi.allplayers[k])) {

@@ -1,0 +1,13 @@
+body {
+    background-color: gray;
+}
+
+button {
+    width: 8em;
+    height: 4.5em;
+}
+
+/*#spec_mode_4 {
+    width: auto;
+    height: auto;
+}*/

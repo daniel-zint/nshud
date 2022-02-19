@@ -15,6 +15,17 @@ class Player {
         this.weapon_grenades = [];
     }
 
+    clear(){
+        this.steam_id = -1;
+        this.name = '';
+        this.team = "";
+        this.state = {};
+        this.match_stats = {};
+        this.weapon_primary = {};
+        this.weapon_secondary = {};
+        this.weapon_grenades = [];
+    }
+
     update(steam_id, data) {
         this.steam_id = steam_id;
         this.name = data.name;

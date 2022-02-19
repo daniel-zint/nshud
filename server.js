@@ -29,6 +29,23 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/spec', (req, res) => {
+    res.sendFile(__dirname + '/spec.html');
+});
+
+let csgoconsole;
+if (config.use_telnet) {
+    csgoconsole = new CsgoConsole();
+    csgoconsole.on('connection-fail', () => {
+        console.log('try reconnect in 5 seconds');
+        setTimeout(() => { csgoconsole.reconnect() }, 5000);
+    });
+    // send chat messages to hud
+    csgoconsole.on('chat-msg', (data) => {
+        io.emit("chat-msg", data);
+    });
+}
+
 io.on('connection', (socket) => {
     console.log('a user connected');
 
@@ -50,6 +67,9 @@ io.on('connection', (socket) => {
         request.get(url, function (error, steamHttpResponse, steamHttpBody) {
             try {
                 let info = JSON.parse(steamHttpBody);
+                if(info.response.players.length === 0){
+                    return;
+                }
                 let avatar_url = info.response.players['0'].avatarfull;
                 io.emit('get-avatar', { id: steamid, url: avatar_url });
             } catch (error) {
@@ -57,11 +77,17 @@ io.on('connection', (socket) => {
             }
         });
     })
+    
+    if (config.use_telnet) {
+        socket.on('cs-exec', data => {
+            csgoconsole.exec(`${data}`);
+        })
+    }
 
     io.emit('config', config);
     io.emit('teaminfo', teaminfo);
 
-    gamestate.update(dummydata, config);
+    //gamestate.update(dummydata, config);
     io.emit('csgo-gsi-update', gamestate);
 });
 
@@ -106,15 +132,3 @@ http.createServer(function (req, res) {
     }
 
 }).listen(csgoport);
-
-if (config.use_telnet) {
-    const csgoconsole = new CsgoConsole();
-    csgoconsole.on('connection-fail', () => {
-        console.log('try reconnect in 5 seconds');
-        setTimeout(() => { csgoconsole.reconnect() }, 5000);
-    });
-    // send chat messages to hud
-    csgoconsole.on('chat-msg', (data) => {
-        io.emit("chat-msg", data);
-    });
-}

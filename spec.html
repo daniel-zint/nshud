@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nsHUD Spectator</title>
+    <link rel="stylesheet" href="css/spec.css">
+</head>
+
+<body>
+    <button id="spec_mode_4">reset</button>
+    <h2>Ancient</h2>
+    <div id="de_ancient">
+        <button id="ancient_t">T</button>
+        <button id="ancient_ct">CT</button>
+        <button id="ancient_knife">Knife</button>
+    </div>
+    <h2>Dust 2</h2>
+    <div id="de_dust2">
+        <button id="dust_t">T</button>
+        <button id="dust_ct">CT</button>
+        <button id="dust_knife">Knife</button>
+    </div>
+    <h2>Mirage</h2>
+    <div id="de_mirage">
+        <button id="mirage_t">T</button>
+        <button id="mirage_ct">CT</button>
+        <button id="mirage_knife">Knife</button>
+    </div>
+    <h2>Nuke</h2>
+    <div id="de_nuke">
+        <button id="nuke_t">T</button>
+        <button id="nuke_ct">CT</button>
+        <button id="nuke_knife">Knife</button>
+    </div>
+    <h2>Overpass</h2>
+    <div id="de_overpass">
+        <button id="over_t">T</button>
+        <button id="over_ct">CT</button>
+        <button id="over_knife">Knife</button>
+    </div>
+    <h2>Inferno</h2>
+    <div id="de_inferno">
+        <button id="infe_t">T</button>
+        <button id="infe_ct">CT</button>
+        <button id="infe_knife">Knife</button>
+    </div>
+    <h2>Vertigo</h2>
+    <div id="de_vertigo">
+        <button id="vert_t">T</button>
+        <button id="vert_ct">CT</button>
+        <button id="vert_knife">Knife</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io();
+        let gamestate = {};
+        let map = '';
+        socket.on('csgo-gsi-update', (gs) => {
+            gamestate = gs;
+            map = gamestate.map;
+            
+            // make all divs invisible
+            document.getElementById('de_ancient').style.visibility = 'hidden';
+            document.getElementById('de_ancient').style.height = '0';
+            document.getElementById('de_dust2').style.visibility = 'hidden';
+            document.getElementById('de_dust2').style.height = '0';
+            document.getElementById('de_mirage').style.visibility = 'hidden';
+            document.getElementById('de_mirage').style.height = '0';
+            document.getElementById('de_nuke').style.visibility = 'hidden';
+            document.getElementById('de_nuke').style.height = '0';
+            document.getElementById('de_overpass').style.visibility = 'hidden';
+            document.getElementById('de_overpass').style.height = '0';
+            document.getElementById('de_inferno').style.visibility = 'hidden';
+            document.getElementById('de_inferno').style.height = '0';
+            document.getElementById('de_vertigo').style.visibility = 'hidden';
+            document.getElementById('de_vertigo').style.height = '0';
+
+            document.getElementById(map).style.visibility = 'visible';
+            document.getElementById(map).style.height = 'auto';
+        });
+
+        // spec_mode 4 --> first person
+        // spec_mode 5 --> third person
+        // spec_mode 6 --> free flight
+        document.getElementById('spec_mode_4').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 4');
+        };
+
+        // Ancient
+        document.getElementById('ancient_t').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -248.4 -2435.3 -2.9 26.7 143.5; spec_lerpto -233.9 -2081.5 3.5 24.6 -147.7 15 15');
+        };
+        document.getElementById('ancient_ct').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -537.4 1046.7 193.4 21.4 74.7; spec_lerpto -115.9 1072.8 186.4 19.4 120.7 15 15');
+        };
+        document.getElementById('ancient_knife').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -230.2 -710.9 354.2 35.9 168.9; spec_lerpto -242.0 -827.2 371.4 36.3 151.9 3 3');
+        };
+        // Dust
+        document.getElementById('dust_t').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -1248.4 -924.5 215.4 11.4 31.2; spec_lerpto 45.2 -1045.9 183.7 8.3 147.2 15 15');
+        };
+        document.getElementById('dust_ct').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto 56.7 2056.2 -103.9 -9.7 58.3; spec_lerpto 489.1 2083.1 -100.0 -10.8 128.1 15 15');
+        };
+        document.getElementById('dust_knife').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto 1410.6 1901.7 28.5 -0.1 117.3; spec_lerpto 1565.2 801.9 251.7 18.0 162.4 3 3');
+        };
+        // Mirage
+        document.getElementById('mirage_t').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto 1098.8 215.7 -120.6 5.6 -52.5; spec_lerpto 1119.1 -550.2 -132.5 0.3 53.6 15 15');
+        };
+        document.getElementById('mirage_ct').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -1480.1 -1591.9 -165.1 8.9 -130.8; spec_lerpto -1455.1 -2184.5 -147.0 15.4 125.3 15 15');
+        };
+        document.getElementById('mirage_knife').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -828.4 -2460.3 -149.1 4.3 46.2; spec_lerpto -455.7 -2005.6 207.1 38.3 39.4 3 3');
+        };
+        // Nuke
+        document.getElementById('nuke_t').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -1412.0 -1098.8 -371.1 4.8 -177.0; spec_lerpto -1643.7 -1289.9 -307.6 24.2 126.2 15 15');
+        };
+        document.getElementById('nuke_ct').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto 2447.3 -393.4 -319.9 2.4 -2.9; spec_lerpto 1787.4 -381.6 -105.9 26.6 -0.6 15 15');
+        };
+        document.getElementById('nuke_knife').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -672.2 -1314.5 -355.9 7.2 -50.5; spec_lerpto 86.3 -2150.0 106.9 46.6 15.1 3 3');
+        };
+        // Overpass
+        document.getElementById('over_t').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -1096.3 -3137.6 294.8 -5.9 -148.2; spec_lerpto -1351.7 -2908.4 299.7 -6.8 -110.6 15 15');
+        };
+        document.getElementById('over_ct').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -1884.1 948.0 517.9 2.0 -149.7; spec_lerpto -2525.2 379.2 702.3 33.1 60.4 15 15');
+        };
+        document.getElementById('over_knife').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -2404.8 -1068.1 470.2 -13.1 -118.9; spec_lerpto -2791.7 -1673.0 733.1 30.2 -38.2 3 3');
+        };
+        // Inferno
+        document.getElementById('infe_t').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -1212.8 263.4 -1.2 -1.0 -156.0; spec_lerpto -1731.6 81.6 -5.0 3.2 59.6 15 15');
+        };
+        document.getElementById('infe_ct').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto 2251.3 2515.0 194.8 1.0 -53.7; spec_lerpto 2250.8 1772.7 373.7 37.4 58.3 15 15');
+        };
+        document.getElementById('infe_knife').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto 1274.7 468.7 151.9 -1.9 74.6; spec_lerpto 1051.2 511.6 521.5 45.8 -179.9 3 3');
+        };
+        // Vertigo
+        document.getElementById('vert_t').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -1768.6 -1432.5 11522.8 -1.2 31.3; spec_lerpto -1949.0 -1001.5 11693.3 21.5 -25.8 15 15');
+        };
+        document.getElementById('vert_ct').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -1269.9 987.7 11833.6 -0.7 -30.7; spec_lerpto -1109.7 480.9 11834.6 -3.3 76.4 15 15');
+        };
+        document.getElementById('vert_knife').onclick = () => {
+            socket.emit('cs-exec', 'spec_mode 6; spec_goto -1781.8 -533.2 11808.9 -2.4 36.2; spec_lerpto -1300.4 -396.9 11880.6 10.5 157.5 3 3');
+        };
+    </script>
+</body>
+
+</html>
