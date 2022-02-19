@@ -64,3 +64,25 @@
     grid-column: 4 / 5;
     background: rgba(0, 0, 0, 0);
 }
+
+/* maps */
+#maps {
+    background-color: var(--color_background_default);
+    position: absolute;
+    top:0;
+    margin-top:10px;
+    right:var(--margin-left-right);
+    transition: top 2s linear 0.5s;
+}
+
+#maps td, #maps th {
+border: 1px solid #dddddd;
+text-align: center;
+padding: 0.5em;
+width: 5em;
+height: 2em;
+}
+
+#maps img {
+    height: 2em;
+}

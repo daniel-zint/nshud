@@ -24,6 +24,51 @@ function updateTeaminfo() {
     }
     avatar2_img.alt = '';
     avatar2.appendChild(avatar2_img);
+
+    // update maps
+    if(teaminfo.maps !== undefined && config.show_team_avatars){
+        const maps_table = document.getElementById("maps");
+        maps_table.innerHTML = "<th>MAP</th><th>PICK</th><th>WIN</th>";
+        //maps_table.innerHTML = '';
+        for(let i = 0; i < 7; ++i){
+            if(i in teaminfo.maps){
+                const m = teaminfo.maps[i];
+                // new tr
+                let tr = document.createElement("tr");
+                let td_mn = document.createElement("td");
+                td_mn.innerHTML = m.name;
+                tr.appendChild(td_mn);
+                let td_pick = document.createElement("td");
+                let img_pick = document.createElement("img");
+                img_pick.alt = '';
+                if(m.pick === "1"){
+                    img_pick.src = getSafe(() => teaminfo.team1.avatar, '');
+                    td_pick.appendChild(img_pick);
+                } else if(m.pick === "2") {
+                    img_pick.src = getSafe(() => teaminfo.team2.avatar, '');
+                    td_pick.appendChild(img_pick);
+                } else {
+                    td_pick.innerHTML = m.pick;
+                }
+                tr.appendChild(td_pick);
+                let td_win = document.createElement("td");
+                let img_win = document.createElement("img");
+                img_win.alt = '';
+                if(m.win === "1"){
+                    img_win.src = getSafe(() => teaminfo.team1.avatar, '');
+                    td_win.appendChild(img_win);
+                } else if(m.win === "2") {
+                    img_win.src = getSafe(() => teaminfo.team2.avatar, '');
+                    td_win.appendChild(img_win);
+                } else {
+                    td_win.innerHTML = m.win;
+                }
+                tr.appendChild(td_win);
+                maps_table.appendChild(tr);
+            }
+        }
+        
+    }
 }
 
 function updateScoreBar(data) {
@@ -77,4 +122,12 @@ function updateScoreBar(data) {
     }
 
     //document.getElementById('HelloWorld').innerHTML = data.phase_countdowns.phase;
+
+    // show maps in freezetime
+    const maps_table = document.getElementById("maps");
+    if(data.phase_countdowns.phase === "freezetime"){
+        maps_table.style.top = "0";
+    } else {
+        maps_table.style.top = "-40em";
+    }
 }

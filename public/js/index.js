@@ -4,6 +4,7 @@ let gamestate = {};
 let avatars = {};   // id{url, img}
 
 let teaminfo = {};
+let maps = {};
 let config = {};
 
 // keyboard input
@@ -51,6 +52,7 @@ socket.on('get-avatar', (data) => {
         let spectator_avatar_url = data.url;
         let avatar_img = document.createElement("img");
         avatar_img.src = spectator_avatar_url;
+        avatar_img.alt = '';
         avatars[id] = {url: spectator_avatar_url, img: avatar_img};
     }
 });
