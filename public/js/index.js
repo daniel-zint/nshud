@@ -35,6 +35,9 @@ socket.on('csgo-gsi-update', (gs) => {
 
 socket.on('teaminfo', (data) => {
     teaminfo = data;
+    if(data.switch_teams == 1){
+        [teaminfo.team1, teaminfo.team2] = [teaminfo.team2, teaminfo.team1];
+    }
     updateTeaminfo();
 });
 

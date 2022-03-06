@@ -10,7 +10,7 @@
 
 /* team-list design */
 ul.team-list {
-    width:18em;
+    width:20%;
     position: fixed;
     bottom:0;
     margin-bottom:10px;
@@ -63,7 +63,7 @@ ul.team-list > li {
 
 .player-container-row.two {
     background-color: var(--color_background_default);
-    font-size: 0.8em;
+    font-size: 1em;
 }
 
 .left .player-container-row.two {

@@ -4,7 +4,7 @@ function updateTeaminfo() {
     let avatar1 = document.getElementById("team_left_avatar");
     avatar1.innerHTML = "";
     let avatar1_img = document.createElement("img");
-    if(config.show_team_avatars) {
+    if (config.show_team_avatars) {
         let avatar1_file = getSafe(() => teaminfo.team1.avatar, '');
         avatar1_img.src = avatar1_file;
     } else {
@@ -16,7 +16,7 @@ function updateTeaminfo() {
     let avatar2 = document.getElementById("team_right_avatar");
     avatar2.innerHTML = "";
     let avatar2_img = document.createElement("img");
-    if(config.show_team_avatars) {
+    if (config.show_team_avatars) {
         let avatar2_file = getSafe(() => teaminfo.team2.avatar, '');
         avatar2_img.src = avatar2_file;
     } else {
@@ -26,12 +26,12 @@ function updateTeaminfo() {
     avatar2.appendChild(avatar2_img);
 
     // update maps
-    if(teaminfo.maps !== undefined && config.show_team_avatars){
+    if (teaminfo.maps !== undefined && config.show_team_avatars) {
         const maps_table = document.getElementById("maps");
         maps_table.innerHTML = "<th>MAP</th><th>PICK</th><th>WIN</th>";
         //maps_table.innerHTML = '';
-        for(let i = 0; i < 7; ++i){
-            if(i in teaminfo.maps){
+        for (let i = 0; i < 7; ++i) {
+            if (i in teaminfo.maps) {
                 const m = teaminfo.maps[i];
                 // new tr
                 let tr = document.createElement("tr");
@@ -41,11 +41,19 @@ function updateTeaminfo() {
                 let td_pick = document.createElement("td");
                 let img_pick = document.createElement("img");
                 img_pick.alt = '';
-                if(m.pick === "1"){
-                    img_pick.src = getSafe(() => teaminfo.team1.avatar, '');
+                if (m.pick === "1") {
+                    if(teaminfo.switch_teams == "1"){
+                        img_pick.src = getSafe(() => teaminfo.team2.avatar, '');
+                    } else {
+                        img_pick.src = getSafe(() => teaminfo.team1.avatar, '');
+                    }
                     td_pick.appendChild(img_pick);
-                } else if(m.pick === "2") {
-                    img_pick.src = getSafe(() => teaminfo.team2.avatar, '');
+                } else if (m.pick === "2") {
+                    if(teaminfo.switch_teams == "1"){
+                        img_pick.src = getSafe(() => teaminfo.team1.avatar, '');
+                    } else {
+                        img_pick.src = getSafe(() => teaminfo.team2.avatar, '');
+                    }
                     td_pick.appendChild(img_pick);
                 } else {
                     td_pick.innerHTML = m.pick;
@@ -54,11 +62,19 @@ function updateTeaminfo() {
                 let td_win = document.createElement("td");
                 let img_win = document.createElement("img");
                 img_win.alt = '';
-                if(m.win === "1"){
-                    img_win.src = getSafe(() => teaminfo.team1.avatar, '');
+                if (m.win === "1") {
+                    if(teaminfo.switch_teams == "1"){
+                        img_win.src = getSafe(() => teaminfo.team2.avatar, '');
+                    } else {
+                        img_win.src = getSafe(() => teaminfo.team1.avatar, '');
+                    }
                     td_win.appendChild(img_win);
-                } else if(m.win === "2") {
-                    img_win.src = getSafe(() => teaminfo.team2.avatar, '');
+                } else if (m.win === "2") {
+                    if(teaminfo.switch_teams == "1"){
+                        img_win.src = getSafe(() => teaminfo.team1.avatar, '');
+                    } else {
+                        img_win.src = getSafe(() => teaminfo.team2.avatar, '');
+                    }
                     td_win.appendChild(img_win);
                 } else {
                     td_win.innerHTML = m.win;
@@ -67,7 +83,7 @@ function updateTeaminfo() {
                 maps_table.appendChild(tr);
             }
         }
-        
+
     }
 }
 
@@ -84,7 +100,6 @@ function updateScoreBar(data) {
     if (!(('phase' in data.phase_countdowns) && ('phase_ends_in' in data.phase_countdowns))) {
         scoreLeft.innerHTML = '';
         scoreRight.innerHTML = '';
-        time.innerHTML = ''
     }
 
     // score
@@ -125,7 +140,7 @@ function updateScoreBar(data) {
 
     // show maps in freezetime
     const maps_table = document.getElementById("maps");
-    if(data.phase_countdowns.phase === "freezetime"){
+    if (data.phase_countdowns.phase === "freezetime") {
         maps_table.style.top = "0";
     } else {
         maps_table.style.top = "-40em";

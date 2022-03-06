@@ -25,7 +25,7 @@
     --color_round_defuse_background: rgb(8, 153, 3);
 
     /* chat colors */
-    --color_background_chat: rgba(37, 37, 37, 0.4);
+    --color_background_chat: rgba(37, 37, 37, 0.6);
 
     --margin-left-right: 10px;
 
@@ -40,7 +40,7 @@ body {
     background-color: transparent;
     color: var(--color_text_default);
     font-family: sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     text-shadow: 0em 0em 0.25em #000000;
 }
 

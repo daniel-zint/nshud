@@ -40,7 +40,6 @@ class CsgoConsole extends Telnet {
             data.forEach(e => {
                 arr.push(e);
             });
-            let nameEnd = -1;
             let messageIdx = -1;
             for (let i = 0; i < arr.length - 8; ++i) {
                 if (arr[i] == 226 &&
@@ -49,21 +48,12 @@ class CsgoConsole extends Telnet {
                     arr[i + 3] == 32 &&
                     arr[i + 4] == 58 &&
                     arr[i + 5] == 32) {
-                    nameEnd = i;
                     messageIdx = i + 6;
                     break;
                 }
             }
             if (messageIdx > 0) {
-                const str = data.toString();
-                const name = str.substring(0, nameEnd);
-                let message = '';
-                for (let i = messageIdx; i < arr.length - 2; ++i) {
-                    message += String.fromCharCode(arr[i]);
-                }
-                //console.log(name);
-                //console.log(message);
-                this.emit('chat-msg', { 'name': name, 'msg': message });
+                this.emit('chat-msg', data.toString() );
             }
 
         });

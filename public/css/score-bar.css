@@ -2,13 +2,13 @@
 #score_bar {
     display: grid;
     grid-template-columns: 
-        3em   /*left avatar*/
-        8em /*left name*/
+        2.5em   /*left avatar*/
+        9em /*left name*/
         2.5em /*left score*/
         3.3em /*time*/
         2.5em /*right score*/
-        8em /*right name*/
-        3em;  /*right avatar*/
+        9em /*right name*/
+        2.5em;  /*right avatar*/
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
@@ -40,7 +40,7 @@
 }
 
 #team_left_avatar img, #team_right_avatar img {
-    width: 3em;
+    width: 2.5em;
     height: auto;
     position: absolute;
     top: 0%;
@@ -76,13 +76,24 @@
 }
 
 #maps td, #maps th {
-border: 1px solid #dddddd;
+border: 0px solid #000000;
 text-align: center;
-padding: 0.5em;
 width: 5em;
-height: 2em;
+height: 2.5em;
+}
+
+#maps th {
+    background-color: #0000004f;
+}
+
+#maps td {
+    background-color: #00000088;
 }
 
 #maps img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     height: 2em;
+    filter: drop-shadow(0em 0em 0.25em #000000);
 }
