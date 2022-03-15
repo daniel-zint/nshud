@@ -18,6 +18,17 @@ See [CS:GO Game State Integration](https://developer.valvesoftware.com/wiki/Coun
 
 The hud runs now as a website at [http://localhost:8000](http://localhost:8000).
 
+### Telnet
+The CS:GO console can be accessed with the telnet protocol. You need to add the following to your CS:GO Launch Options:
+```
+-netconport 2121
+```
+Additionally, in *config.json* the `use_telnet` option has to be true.
+The hud uses the console access to read ingame chat messages and display them in the hud. Furthermore, any console command can be triggered by the hud. 
+
+The hud can therefore trigger some camera transitions in CS:GO. They are implemented in `spec.html`. For using them, open the website [http://localhost:8000/spec](http://localhost:8000/spec). Press the desired camera transition. Be aware that `random` triggers multiple, one after another.
+**When going back to spectating players, one should always press the `reset` button first.** This resets the `spec_mode` and stops the random camera transitions from triggering new transitions every few seconds.
+
 ## Config & Team Info
 There are two important files for customization. One is the config file with some basic settings. The other is the team info. Here, you can enter the names of the teams playing and add team icons.
 
