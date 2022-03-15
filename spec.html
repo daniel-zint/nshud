@@ -11,6 +11,8 @@
 
 <body>
     <button id="btn_reset">reset</button>
+    <button id="btn_swap_sides_on">swap on</button>
+    <button id="btn_swap_sides_off">swap off</button>
     <h2>Ancient</h2>
     <div id="de_ancient">
         <button id="ancient_t">T</button>
@@ -107,7 +109,7 @@
         let camRandomTransitionInterval;
         function randomTransitions(transitions) {
             clearInterval(camRandomTransitionInterval);
-            const intervalTime = 15;
+            const intervalTime = 20;
             const r = Array.from(Array(transitions.length).keys()).sort((a, b) => 0.5 - Math.random());
             camTransition(transitions[r[0]], intervalTime);
             let c = 1;
@@ -124,6 +126,13 @@
         document.getElementById('btn_reset').onclick = () => {
             socket.emit('cs-exec', 'spec_mode 4');
             clearInterval(camRandomTransitionInterval);
+        };
+        // swap player sides
+        document.getElementById('btn_swap_sides_on').onclick = () => {
+            socket.emit('cs-exec', 'cl_spec_swapplayersides 1');
+        };
+        document.getElementById('btn_swap_sides_off').onclick = () => {
+            socket.emit('cs-exec', 'cl_spec_swapplayersides 0');
         };
 
         function camTransition(pos, t) {
