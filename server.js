@@ -20,11 +20,6 @@ const CsgoConsole = require('./nsgsi/csgoconsole.js');
 const hudport = process.env.PORT || 8000;
 const csgoport = 3001;
 
-
-
-const dummydataFile = fs.readFileSync('debug/dummy.json');
-const dummydata = JSON.parse(dummydataFile);
-
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
