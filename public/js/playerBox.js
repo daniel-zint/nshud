@@ -217,8 +217,12 @@ function updatePlayerBox(p, right2left = false) {
     p.weapon_grenades.forEach((w, i) => {
         if (w.name !== undefined) {
             let nade_img = getIcon(w.name, right2left);
+            nade_img.className = "nade-img";
             if (w.state === "holstered") {
                 nade_img.style.filter = 'brightness(0.8)';
+            }
+            if(w.name === "weapon_flashbang"){
+                nade_img.style.height = '1.2em';
             }
             nades[i].appendChild(nade_img);
         }
