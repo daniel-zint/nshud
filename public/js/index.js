@@ -11,6 +11,11 @@ let config = {};
 document.addEventListener('keydown', (e) => {
     if (e.code === "KeyS") {
         [teaminfo.team1, teaminfo.team2] = [teaminfo.team2, teaminfo.team1];
+        if(teaminfo.switch_teams == "0"){
+            teaminfo.switch_teams = "1";
+        } else {
+            teaminfo.switch_teams = "0";
+        }
         updateTeaminfo();
     } else if (e.code == "KeyR") {
         window.location.reload();

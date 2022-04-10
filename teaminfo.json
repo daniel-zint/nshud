@@ -10,14 +10,16 @@
 
     "maps": {
         "1": {
-            "name": "",
-            "pick": "1",
-            "win": ""
+            "name": "Nuke",
+            "pick": "2",
+            "win": "1",
+            "score": "16:14"
         },
         "2": {
-            "name": "",
-            "pick": "2",
-            "win": ""
+            "name": "Inferno",
+            "pick": "1",
+            "win": "playing",
+            "score": "-"
         }
     }
 }

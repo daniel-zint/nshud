@@ -27,60 +27,51 @@ function updateTeaminfo() {
 
     // update maps
     if (teaminfo.maps !== undefined && config.show_team_avatars) {
-        const maps_table = document.getElementById("maps");
-        maps_table.innerHTML = "<th>MAP</th><th>PICK</th><th>WIN</th>";
+        let avatar1 = getSafe(() => teaminfo.team1.avatar, '');
+        let avatar2 = getSafe(() => teaminfo.team2.avatar, '');
+        if(teaminfo.switch_teams == "1"){
+            [avatar1,avatar2] = [avatar2,avatar1];
+        }
+        
+        const maps_table = $("#maps");
+        maps_table.html("<th>MAP</th><th>PICK</th><th>WIN</th><th>SCORE</th>");
         //maps_table.innerHTML = '';
         for (let i = 0; i < 7; ++i) {
             if (i in teaminfo.maps) {
                 const m = teaminfo.maps[i];
-                // new tr
-                let tr = document.createElement("tr");
-                let td_mn = document.createElement("td");
-                td_mn.innerHTML = m.name;
-                tr.appendChild(td_mn);
-                let td_pick = document.createElement("td");
-                let img_pick = document.createElement("img");
-                img_pick.alt = '';
+                // pick
+                let tr = $("<tr></tr>");
+                tr.append($("<td></td>").text(m.name));
+                let td_pick = $("<td></td>");
+                let img_pick = $("<img></img>");
+                img_pick.attr('alt', '');
                 if (m.pick === "1") {
-                    if(teaminfo.switch_teams == "1"){
-                        img_pick.src = getSafe(() => teaminfo.team2.avatar, '');
-                    } else {
-                        img_pick.src = getSafe(() => teaminfo.team1.avatar, '');
-                    }
-                    td_pick.appendChild(img_pick);
+                    img_pick.prop('src', avatar1);
+                    td_pick.append(img_pick);
                 } else if (m.pick === "2") {
-                    if(teaminfo.switch_teams == "1"){
-                        img_pick.src = getSafe(() => teaminfo.team1.avatar, '');
-                    } else {
-                        img_pick.src = getSafe(() => teaminfo.team2.avatar, '');
-                    }
-                    td_pick.appendChild(img_pick);
+                    img_pick.prop('src', avatar2);
+                    td_pick.append(img_pick);
                 } else {
-                    td_pick.innerHTML = m.pick;
+                    td_pick.html(m.pick);
                 }
-                tr.appendChild(td_pick);
-                let td_win = document.createElement("td");
-                let img_win = document.createElement("img");
-                img_win.alt = '';
+                // win
+                tr.append(td_pick);
+                let td_win = $("<td></td>");
+                let img_win = $("<img></img>");
+                img_win.attr('alt', '');
                 if (m.win === "1") {
-                    if(teaminfo.switch_teams == "1"){
-                        img_win.src = getSafe(() => teaminfo.team2.avatar, '');
-                    } else {
-                        img_win.src = getSafe(() => teaminfo.team1.avatar, '');
-                    }
-                    td_win.appendChild(img_win);
+                    img_win.prop('src', avatar1);
+                    td_win.append(img_win);
                 } else if (m.win === "2") {
-                    if(teaminfo.switch_teams == "1"){
-                        img_win.src = getSafe(() => teaminfo.team1.avatar, '');
-                    } else {
-                        img_win.src = getSafe(() => teaminfo.team2.avatar, '');
-                    }
-                    td_win.appendChild(img_win);
+                    img_win.prop('src', avatar2);
+                    td_win.append(img_win);
                 } else {
-                    td_win.innerHTML = m.win;
+                    td_win.text(m.win);
                 }
-                tr.appendChild(td_win);
-                maps_table.appendChild(tr);
+                tr.append(td_win);
+                // score
+                tr.append($("<td></td>").appendText(m.score));
+                maps_table.append(tr);
             }
         }
 
