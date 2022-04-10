@@ -11,50 +11,31 @@ function updateSpectatorBox() {
         return;
     }
 
-    let name = document.getElementById("spec_name");
-    name.innerHTML = `${p.observer_slot}| ${p.name}`;
+    let name = $("#spec_name");
+    name.html(`${p.observer_slot}| ${p.name}`);
 
 
-    let td_health = document.getElementById("spec_health");
+    $("#spec_health").empty();
     if ('health' in p.state) {
-        td_health.innerHTML = '';
         let health_img = getIcon("health");
         health_img.style.height = '0.7em';
-        td_health.appendChild(health_img);
-        td_health.appendChild(document.createTextNode(` ${p.state.health}`));
-    } else {
-        td_health.innerHTML = '';
-    }
-
-    let td_kevlar = document.getElementById(`spec_kevlar`);
-    td_kevlar.innerHTML = "";
-    let kills = document.getElementById(`spec_kills`);
-    kills.innerHTML = "";
-    let deaths = document.getElementById(`spec_deaths`);
-    deaths.innerHTML = "";
-    let assists = document.getElementById(`spec_assists`);
-    assists.innerHTML = "";
-    let nades = [];
-    for (let i = 0; i < 4; ++i) {
-        nades[i] = document.getElementById(`spec_n${i}`);
-        nades[i].innerHTML = "";
+        $("#spec_health").append(health_img).appendText(` ${p.state.health}`);
     }
 
     if ('kills' in p.match_stats) {
-        kills.innerHTML = `${p.match_stats.kills}`;
-        deaths.innerHTML = `${p.match_stats.deaths}`;
-        assists.innerHTML = `${p.match_stats.assists}`;
+        $(`#spec_kills`).html(`${p.match_stats.kills}`);
+        $(`#spec_deaths`).html(`${p.match_stats.deaths}`);
+        $(`#spec_assists`).html(`${p.match_stats.assists}`);
     } else {
-        kills.innerHTML = `?`;
-        deaths.innerHTML = `?`;
-        assists.innerHTML = `?`;
+        $(`#spec_kills`).html(`?`);
+        $(`#spec_deaths`).html(`?`);
+        $(`#spec_assists`).html(`?`);
     }
 
-    let rk = document.getElementById(`spec_round_kills`);
-    rk.innerHTML = '';
+    $('#spec_round_kills').empty();
     if ('round_kills' in p.state && p.state.round_kills > 0) {
-        rk.appendChild(getIcon('skull'));
-        rk.appendChild(document.createTextNode(` ${p.state.round_kills}`));
+        $('#spec_round_kills').append(getIcon('skull'));
+        $('#spec_round_kills').appendText(` ${p.state.round_kills}`);
     }
 
     if (p.state.health === 0) {
@@ -77,60 +58,57 @@ function updateSpectatorBox() {
     } else {
         kevlar_img = document.createTextNode("?");
     }
-    td_kevlar.appendChild(kevlar_img);
-    td_kevlar.appendChild(document.createTextNode(kevlar_str));
+    $('#spec_kevlar').empty();
+    $('#spec_kevlar').append(kevlar_img);
+    $('#spec_kevlar').appendText(kevlar_str);
     // c4 and defuse kit
 
-    let defuse_bomb = document.getElementById("spec_defuse_bomb");
-    defuse_bomb.innerHTML = "";
+    $('#spec_defuse_bomb').empty();
     if ("weapon_c4" in p) {
-        defuse_bomb.appendChild(getIcon("c4"));
+        $('#spec_defuse_bomb').append(getIcon("c4"));
     } else if (p.state.defusekit) {
-        defuse_bomb.appendChild(getIcon("kit"));
+        $('#spec_defuse_bomb').append(getIcon("kit"));
     }
 
     // weapons //
-    let ammo = document.getElementById("spec_ammo");
-    ammo.innerHTML = '';
+    $('#spec_ammo').empty();
     if (p.weapon_primary.state === "active") {
         let a = p.weapon_primary.ammo_clip;
         let b = p.weapon_primary.ammo_reserve;
-        ammo.innerHTML = `${a}/${b}`;
+        $('#spec_ammo').html(`${a}/${b}`);
     } else if (p.weapon_secondary.state === "active") {
         let a = p.weapon_secondary.ammo_clip;
         let b = p.weapon_secondary.ammo_reserve;
-        ammo.innerHTML = `${a}/${b}`;
+        $('#spec_ammo').html(`${a}/${b}`);
     }
 
     // nades
+    for(let i = 0; i < 4; ++i){
+        $(`#spec_n${i}`).empty();
+    }
     p.weapon_grenades.forEach((w, i) => {
         let nade_img = getIcon(w.name);
         if (w.state === "holstered") {
             nade_img.style.filter = 'brightness(0.8)';
         }
-        nades[i].appendChild(nade_img);
+        $(`#spec_n${i}`).append(nade_img);
     });
 
-    let row1 = document.getElementById("spec_row_one");
     if (p.team === "T") {
-        row1.style.background = `linear-gradient(30deg, ${colors.t} 50%, rgba(0,0,0,1) 130%`;
+        $('#spec_row_one').css("background", `linear-gradient(30deg, ${colors.t} 50%, rgba(0,0,0,1) 130%`);
     } else {
-        row1.style.background = `linear-gradient(30deg, ${colors.ct} 50%, rgba(0,0,0,1) 130%`;
+        $('#spec_row_one').css("background", `linear-gradient(30deg, ${colors.ct} 50%, rgba(0,0,0,1) 130%`);
     }
 
     if(config.show_player_avatars){
         // avatar is taken from steam api
         const steamid = gamestate.observed_player_steamid;
         if (steamid in avatars) {
-            let avatar = document.getElementById("spec_avatar");
-            avatar.innerHTML = "";
-            avatar.appendChild(avatars[steamid].img);
+            $("#spec_avatar").empty().append(avatars[steamid].img);
         }
-        let spectator_box = document.getElementById("spectator_box");
-        spectator_box.style["grid-template-columns"] = "var(--spectate-avatar-size) 1fr";
+        $('#spectator_box').css("grid-template-columns", "var(--spectate-avatar-size) 1fr");
     } else {
-        let spectator_box = document.getElementById("spectator_box");
-        spectator_box.style["grid-template-columns"] = "0em 1fr";
+        $('#spectator_box').css("grid-template-columns", "0em 1fr");
     }
 
 }
