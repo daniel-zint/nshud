@@ -170,11 +170,7 @@ function updatePlayerBox(p, right2left = false) {
     let kevlar_img;
     if ('armor' in p.state) {
         if (p.state.armor > 0) {
-            if (p.state.helmet) {
-                kevlar_img = getIcon("kevlar_helmet");
-            } else {
-                kevlar_img = getIcon("kevlar");
-            }
+            kevlar_img = getIcon(p.state.helmet ? 'kevlar_helmet' : 'kevlar');
         } else {
             kevlar_img = document.createTextNode(" ");
         }
@@ -217,13 +213,8 @@ function updatePlayerBox(p, right2left = false) {
     p.weapon_grenades.forEach((w, i) => {
         if (w.name !== undefined) {
             let nade_img = getIcon(w.name, right2left);
-            nade_img.className = "nade-img";
-            if (w.state === "holstered") {
-                nade_img.style.filter = 'brightness(0.8)';
-            }
-            if(w.name === "weapon_flashbang"){
-                nade_img.style.height = '1.2em';
-            }
+            nade_img.className = `nade-img ${w.state} ${w.name}`;
+            
             nades[i].appendChild(nade_img);
         }
     });

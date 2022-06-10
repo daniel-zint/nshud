@@ -54,3 +54,12 @@ body {
 img {
     height: 0.9em;
 }
+
+/* weapon images */
+img.holstered {
+    filter: brightness(0.8);
+}
+
+img.weapon_flashbang {
+    height: 1.2em;
+}

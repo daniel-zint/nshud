@@ -25,6 +25,10 @@
     bottom: 0%;
 }
 
+#spec_health img {
+    height: 0.7em;
+}
+
 .spectator-box div {
     background-color: var(--color_background_default);
 }
@@ -44,7 +48,7 @@
     1fr /* name */
     2em /* round-kills */
     2.5em /* defuse/bomb */
-    repeat(4, 0.8em) /* nades */;
+    4em /* nades */;
 }
 
 .spectator-box-row.two {

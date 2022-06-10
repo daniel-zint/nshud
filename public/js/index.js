@@ -1,22 +1,22 @@
 let socket = io();
 
-let gamestate = {};
+let gameState = {};
 let avatars = {};   // id{url, img}
 
-let teaminfo = {};
+let teamInfo = {};
 let maps = {};
 let config = {};
 
 // keyboard input
 document.addEventListener('keydown', (e) => {
     if (e.code === "KeyS") {
-        [teaminfo.team1, teaminfo.team2] = [teaminfo.team2, teaminfo.team1];
-        if(teaminfo.switch_teams == "0"){
-            teaminfo.switch_teams = "1";
+        [teamInfo.team1, teamInfo.team2] = [teamInfo.team2, teamInfo.team1];
+        if(teamInfo.switch_teams == "0"){
+            teamInfo.switch_teams = "1";
         } else {
-            teaminfo.switch_teams = "0";
+            teamInfo.switch_teams = "0";
         }
-        updateTeaminfo();
+        updateTeamInfo();
     } else if (e.code == "KeyR") {
         window.location.reload();
     } else if (e.code == "KeyD") {
@@ -26,24 +26,24 @@ document.addEventListener('keydown', (e) => {
 
 
 socket.on('csgo-gsi-update', (gs) => {
-    gamestate = gs;
+    gameState = gs;
     // avatars
-    gamestate.players.forEach(p => {
+    gameState.players.forEach(p => {
         if ((p.steam_id !== -1) && !(p.steam_id in avatars)) {
             socket.emit('send-avatar', p.steam_id);
         }
     });
-    updateAllPlayerBoxes(gamestate);
-    updateScoreBar(gamestate);
+    updateAllPlayerBoxes(gameState);
+    updateScoreBar(gameState);
     updateSpectatorBox();
 });
 
 socket.on('teaminfo', (data) => {
-    teaminfo = data;
+    teamInfo = data;
     if(data.switch_teams == 1){
-        [teaminfo.team1, teaminfo.team2] = [teaminfo.team2, teaminfo.team1];
+        [teamInfo.team1, teamInfo.team2] = [teamInfo.team2, teamInfo.team1];
     }
-    updateTeaminfo();
+    updateTeamInfo();
 });
 
 socket.on('config', (data) => {
