@@ -99,6 +99,7 @@ function updateScoreBar(data) {
         roundTimer.start(timeSeconds)
     }
 
+    // defuse
     if (getSafe(() => data.bomb.state) === 'defusing' && data.bomb.countdown != undefined) {
         const time_perc = data.bomb.countdown * 10; // this is 100 for a 10 seconds defuse
         $('#defuse')
@@ -108,6 +109,16 @@ function updateScoreBar(data) {
         $('#defuse')
             .html('')
             .css('background', '');
+    }
+
+    // round wins
+    if(data.phase_countdowns.phase === "freezetime"){
+        for (const [key, value] of Object.entries(data.round_wins)) {
+            $(`#round_wins_${key}`).find('span').css('background-color', value[0] === 't' ? colors.t : colors.ct);
+        }
+        $("#round_wins").removeClass().addClass('visible');
+    } else {
+        $("#round_wins").removeClass().addClass('invisible');
     }
 
     // show maps in freezetime

@@ -50,9 +50,7 @@ class GameState {
             this.round = gsi.map.round;
             this.team_ct = gsi.map.team_ct;
             this.team_t = gsi.map.team_t;
-            for (const k in gsi.map.round_wins) {
-                this.round_wins.push(ROUND_WIN_TYPES[gsi.map.round_wins[k]]);
-            }
+            this.round_wins = gsi.map.round_wins;
         }
         if ("phase_countdowns" in gsi) {
             this.phase_countdowns = gsi.phase_countdowns;
