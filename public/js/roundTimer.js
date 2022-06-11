@@ -12,7 +12,7 @@ roundTimer.onTick(format);
 function format(minutes, seconds) {
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
-    switch (getSafe(() => gamestate.phase_countdowns.phase)) {
+    switch (getSafe(() => gameState.phase_countdowns.phase)) {
         case 'live':
             displayTime.style.color = colors.round_live;
             displayTime.style.background = colors.background_default;
