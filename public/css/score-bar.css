@@ -20,6 +20,7 @@
 
 .team-name {
     background-color: var(--color_background_default);
+    font-size: 0.7em;
 }
 
 .score-team {
@@ -27,15 +28,18 @@
 }
 
 #score_bar div {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.5rem;
     padding: 5px 5px 5px 5px;
 }
 #team_name_left {
-    text-align: right !important;
+    justify-content: end !important;
     padding-right: 0.3em !important;
 }
 #team_name_right {
-    text-align: left !important;
+    justify-content: start !important;
     padding-right: 0.3em !important;
 }
 

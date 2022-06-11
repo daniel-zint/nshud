@@ -72,14 +72,14 @@ ul.team-list > li {
         4em /* money */
         4.5em /* K/D */
         2em /* taser */
-        3em /* nades */
+        4em /* nades */
         1fr /* secondary */;
 }
 
 .right .player-container-row.two {
     grid-template-columns: 
         1fr /* secondary */
-        3em /* nades */
+        4em /* nades */
         2em /* taser */
         4.5em /* K/D */
         4em /* money */
