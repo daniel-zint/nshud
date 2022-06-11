@@ -111,6 +111,54 @@
     display: inline-block;
 }
 
+.dot-win {
+    width: 0.3em;
+    height: 0.6em;
+    background: white;
+    border-radius: 25%;
+    display: inline-block;
+}
+
+.map-win {
+    display: block !important;
+    position: absolute;
+    grid-row: 1/2;
+}
+
+.map-win.l {
+    left: 0.3em;
+    grid-column: 2/3;
+}
+
+.map-win.r {
+    right: 0.3em;
+    grid-column: 6/7;
+}
+
+.map-win.n1 {
+    top: 0.5em;
+}
+
+.map-win.n2 {
+    bottom: 0.5em;
+}
+
+.map-win.n1.l{
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.map-win.n2.l{
+    transform: translateX(-50%) translateY(+50%);
+}
+
+.map-win.n1.r{
+    transform: translateX(+50%) translateY(-50%);
+}
+
+.map-win.n2.r{
+    transform: translateX(+50%) translateY(+50%);
+}
+
 /* maps */
 #maps {
     background-color: var(--color_background_default);

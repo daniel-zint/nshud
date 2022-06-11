@@ -23,7 +23,7 @@ function updateTeamInfo() {
 
         const maps_table = $("#maps")
             .html("<th>MAP</th><th>PICK</th><th>WIN</th><th>SCORE</th>");
-        for (let i = 0; i < 7; ++i) {
+        for (let i = 0; i < 8; ++i) {
             if (i in teamInfo.maps) {
                 const m = teamInfo.maps[i];
                 let tr = $("<tr></tr>")
@@ -63,6 +63,19 @@ function updateTeamInfo() {
             }
         }
 
+        for (let i = 0; i < 3; ++i) {
+            if (i in teamInfo.maps) {
+                const m = teamInfo.maps[i];
+                if(m.win === "1"){
+                    $(`#team_left_map_${i}`).find('.dot-win').css('background','black');
+                } else if(m.win === "2"){
+                    $(`#team_right_map_${i}`).find('.dot-win').css('background','black');
+                }
+            }
+        }
+
+    } else {
+        $('.map-win').css('visibility','hidden');
     }
 }
 
