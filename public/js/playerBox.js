@@ -211,6 +211,9 @@ function updatePlayerBox(p, right2left = false) {
 
     // nades
     p.weapon_grenades.forEach((w, i) => {
+        if(i > 3){
+            return;
+        }
         if (w.name !== undefined) {
             let nade_img = getIcon(w.name, right2left);
             nade_img.className = `nade-img ${w.state} ${w.name}`;

@@ -36,8 +36,8 @@
 }
 
 body {
-    /*background-color: #686767;*/
-    background-color: transparent;
+    background-color: #686767;
+    /*background-color: transparent;*/
     color: var(--color_text_default);
     font-family: sans-serif;
     font-size: 12px;
@@ -49,6 +49,10 @@ body {
 }
 .color_t {
     background: var(--color_t);
+}
+
+.color_white {
+    background: white;
 }
 
 img {

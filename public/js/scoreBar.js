@@ -63,19 +63,9 @@ function updateTeamInfo() {
             }
         }
 
-        for (let i = 0; i < 3; ++i) {
-            if (i in teamInfo.maps) {
-                const m = teamInfo.maps[i];
-                if(m.win === "1"){
-                    $(`#team_left_map_${i}`).find('.dot-win').css('background','black');
-                } else if(m.win === "2"){
-                    $(`#team_right_map_${i}`).find('.dot-win').css('background','black');
-                }
-            }
-        }
 
     } else {
-        $('.map-win').css('visibility','hidden');
+        $('.map-win').css('visibility', 'hidden');
     }
 }
 
@@ -107,6 +97,29 @@ function updateScoreBar(data) {
             .removeClass().addClass('color_ct');
     }
 
+    // map win dots
+    for (let i = 0; i < 3; ++i) {
+        if (i in teamInfo.maps) {
+            const m = teamInfo.maps[i];
+            if (m.win === "1") {
+                $(`#team_left_map_${i}`).find('.dot-win').removeClass()
+                    .addClass('dot-win')
+                    .addClass(data?.players[1]?.team === "CT" ? "color_ct" : "color_t");
+            } else {
+                $(`#team_left_map_${i}`).find('.dot-win').removeClass()
+                    .addClass('dot-win color_white');
+            }
+            if (m.win === "2") {
+                $(`#team_right_map_${i}`).find('.dot-win').removeClass()
+                    .addClass('dot-win')
+                    .addClass(data?.players[6]?.team === "CT" ? "color_ct" : "color_t");
+            } else {
+                $(`#team_right_map_${i}`).find('.dot-win').removeClass()
+                    .addClass('dot-win color_white');
+            }
+        }
+    }
+
     const timeSeconds = Math.ceil(data.phase_countdowns.phase_ends_in);
     if (timeSeconds !== roundTimer.time && data.phase_countdowns.phase !== 'defuse') {
         roundTimer.start(timeSeconds)
@@ -125,7 +138,7 @@ function updateScoreBar(data) {
     }
 
     // round wins
-    if(data.phase_countdowns.phase === "freezetime"){
+    if (data.phase_countdowns.phase === "freezetime") {
         for (const [key, value] of Object.entries(data.round_wins)) {
             $(`#round_wins_${key}`).find('span').css('background-color', value[0] === 't' ? colors.t : colors.ct);
         }
