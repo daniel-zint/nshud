@@ -1,373 +1,506 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nsHUD Spectator</title>
-    <link rel="stylesheet" href="css/spec.css">
-</head>
+    <link rel="stylesheet" href="css/spec.css" />
+  </head>
 
-<body>
+  <body>
     <button id="btn_reset">reset</button>
     <button id="btn_swap_sides_on">swap on</button>
     <button id="btn_swap_sides_off">swap off</button>
     <h2>Ancient</h2>
     <div id="de_ancient">
-        <button id="ancient_t">T</button>
-        <button id="ancient_ct">CT</button>
-        <button id="ancient_knife">Knife</button>
-        <button id="ancient_a">A</button>
-        <button id="ancient_b">B</button>
-        <button id="ancient_rand">random</button>
+      <button id="ancient_t">T</button>
+      <button id="ancient_ct">CT</button>
+      <button id="ancient_knife">Knife</button>
+      <button id="ancient_a">A</button>
+      <button id="ancient_b">B</button>
+      <button id="ancient_rand">random</button>
     </div>
     <h2>Dust 2</h2>
     <div id="de_dust2">
-        <button id="dust_t">T</button>
-        <button id="dust_ct">CT</button>
-        <button id="dust_knife">Knife</button>
-        <button id="dust_a">A</button>
-        <button id="dust_b">B</button>
-        <button id="dust_rand">random</button>
+      <button id="dust_t">T</button>
+      <button id="dust_ct">CT</button>
+      <button id="dust_knife">Knife</button>
+      <button id="dust_a">A</button>
+      <button id="dust_b">B</button>
+      <button id="dust_rand">random</button>
     </div>
     <h2>Mirage</h2>
     <div id="de_mirage">
-        <button id="mirage_t">T</button>
-        <button id="mirage_ct">CT</button>
-        <button id="mirage_knife">Knife</button>
-        <button id="mirage_a">A</button>
-        <button id="mirage_b">B</button>
-        <button id="mirage_rand">random</button>
+      <button id="mirage_t">T</button>
+      <button id="mirage_ct">CT</button>
+      <button id="mirage_knife">Knife</button>
+      <button id="mirage_a">A</button>
+      <button id="mirage_b">B</button>
+      <button id="mirage_rand">random</button>
     </div>
     <h2>Nuke</h2>
     <div id="de_nuke">
-        <button id="nuke_t">T</button>
-        <button id="nuke_ct">CT</button>
-        <button id="nuke_knife">Knife</button>
-        <button id="nuke_a">A</button>
-        <button id="nuke_b">B</button>
-        <button id="nuke_rand">random</button>
+      <button id="nuke_t">T</button>
+      <button id="nuke_ct">CT</button>
+      <button id="nuke_knife">Knife</button>
+      <button id="nuke_a">A</button>
+      <button id="nuke_b">B</button>
+      <button id="nuke_rand">random</button>
     </div>
     <h2>Overpass</h2>
     <div id="de_overpass">
-        <button id="over_t">T</button>
-        <button id="over_ct">CT</button>
-        <button id="over_knife">Knife</button>
-        <button id="over_a">A</button>
-        <button id="over_b">B</button>
-        <button id="over_rand">random</button>
+      <button id="over_t">T</button>
+      <button id="over_ct">CT</button>
+      <button id="over_knife">Knife</button>
+      <button id="over_a">A</button>
+      <button id="over_b">B</button>
+      <button id="over_rand">random</button>
     </div>
     <h2>Inferno</h2>
     <div id="de_inferno">
-        <button id="infe_t">T</button>
-        <button id="infe_ct">CT</button>
-        <button id="infe_knife">Knife</button>
-        <button id="infe_a">A</button>
-        <button id="infe_b">B</button>
-        <button id="infe_rand">random</button>
+      <button id="infe_t">T</button>
+      <button id="infe_ct">CT</button>
+      <button id="infe_knife">Knife</button>
+      <button id="infe_a">A</button>
+      <button id="infe_b">B</button>
+      <button id="infe_rand">random</button>
     </div>
     <h2>Vertigo</h2>
     <div id="de_vertigo">
-        <button id="vert_t">T</button>
-        <button id="vert_ct">CT</button>
-        <button id="vert_knife">Knife</button>
-        <button id="vert_a">A</button>
-        <button id="vert_b">B</button>
-        <button id="vert_rand">random</button>
+      <button id="vert_t">T</button>
+      <button id="vert_ct">CT</button>
+      <button id="vert_knife">Knife</button>
+      <button id="vert_a">A</button>
+      <button id="vert_b">B</button>
+      <button id="vert_rand">random</button>
     </div>
+
+    <button id="btn_volume0">volume 0</button>
+    <button id="btn_volume2">volume 0.2</button>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        let socket = io();
-        let gamestate = {};
-        let map = '';
-        socket.on('csgo-gsi-update', (gs) => {
-            gamestate = gs;
-            map = gamestate.map;
+      let socket = io();
+      let gamestate = {};
+      let map = "";
+      let autoTransitionsRunning = false;
 
-            // make all divs invisible
-            document.getElementById('de_ancient').style.visibility = 'hidden';
-            document.getElementById('de_ancient').style.height = '0';
-            document.getElementById('de_dust2').style.visibility = 'hidden';
-            document.getElementById('de_dust2').style.height = '0';
-            document.getElementById('de_mirage').style.visibility = 'hidden';
-            document.getElementById('de_mirage').style.height = '0';
-            document.getElementById('de_nuke').style.visibility = 'hidden';
-            document.getElementById('de_nuke').style.height = '0';
-            document.getElementById('de_overpass').style.visibility = 'hidden';
-            document.getElementById('de_overpass').style.height = '0';
-            document.getElementById('de_inferno').style.visibility = 'hidden';
-            document.getElementById('de_inferno').style.height = '0';
-            document.getElementById('de_vertigo').style.visibility = 'hidden';
-            document.getElementById('de_vertigo').style.height = '0';
+      const ancientTransitions = [
+        ["-248.4 -2435.3 -2.9 26.7 143.5", "-233.9 -2081.5 3.5 24.6 -147.7"], // T
+        ["-537.4 1046.7 193.4 21.4 74.7", "-115.9 1072.8 186.4 19.4 120.7"], // CT
+        ["-523.0 524.5 192.8 6.8 89.2", "-424.8 -868.1 270.3 29.1 148.6"], // Knife
+        ["-1051.1 -822.4 108.9 5.6 32.0", "-212.9 -775.1 240.2 14.2 127.5"], // Mid - Speedway
+        ["-1362.0 -62.6 129.1 1.6 88.6", "-1382.5 905.7 122.0 -1.5 90.3"], // Donut - Temple
+        ["605.5 1015.6 411.7 29.7 -70.4", "1438.2 -789.9 364.6 34.7 176.4"], // B - Banana
+        ["-513.5 909.8 140.6 -1.4 -91.0", "-495.2 -545.7 342.3 9.5 -89.5"], // Window - Mid
+        ["1296.1 -1840.9 22.3 11.6 177.6", "-137.1 -1842.5 -122.4 2.3 178.6"], // T Spawn - B
+        ["426.9 -1892.8 -125.4 -12.9 48.0", "1397.8 -831.2 508.6 22.7 118.8"], // T Spawn Tunnel - B Banana Door
+        ["1359.9 -837.7 72.5 -4.4 105.6", "1078.6 112.8 204.3 -0.6 112.9"], // Banana - B
+        ["327.3 263.4 200.9 7.1 -76.9", "484.8 -409.9 228.1 4.1 -139.7"], // Maze - Speedway
+        ["-67.9 -850.9 305.3 14.6 4.2", "1080.4 -778.3 70.6 5.7 4.4"], // Speedway - Banana
+        ["221.8 1570.2 404.3 26.6 -153.7", "-1518.2 788.7 306.3 24.7 -134.4"], // CT - A
+      ];
+      const dustTransitions = [
+        ["-1248.4 -924.5 215.4 11.4 31.2", "45.2 -1045.9 183.7 8.3 147.2"], // T
+        ["56.7 2056.2 -103.9 -9.7 58.3", "489.1 2083.1 -100.0 -10.8 128.1"], // CT
+        ["1410.6 1901.7 28.5 -0.1 117.3", "1565.2 801.9 251.7 18.0 162.4"], // Knife
+        ["-421.1 -559.1 60.0 1.5 91.6", "-417.9 1259.5 -5.9 5.8 89.8"], // Mid down
+        ["-412.0 1818.6 -112.1 -2.4 -89.7", "-408.2 779.7 13.1 -8.3 -89.5"], // Mid up
+        ["-1071.4 1408.6 -66.9 -12.2 -93.5", "-1125.4 1072.9 95.5 5.6 172.5"], // Tunnel lower - upper
+        ["-1989.6 1096.5 83.8 2.2 90.2", "-1994.9 2407.5 85.8 -0.9 90.0"], // Tunnel - B
+        ["-1271.0 2190.9 40.7 8.3 1.7", "692.1 2107.9 -40.5 4.7 134.0"], // B - CT
+        ["651.1 2603.6 166.7 6.8 -107.9", "267.3 1347.7 209.8 20.9 172.1"], // A - Short
+        ["638.8 -266.6 94.5 1.6 95.6", "640.0 949.8 93.5 7.9 92.3"], // T - Long (double doors)
+      ];
+      const mirageTransitions = [
+        ["1098.8 215.7 -120.6 5.6 -52.5", "1119.1 -550.2 -132.5 0.3 53.62"], // T
+        [
+          "-1480.1 -1591.9 -165.1 8.9 -130.8",
+          "-1455.1 -2184.5 -147.0 15.4 125.3",
+        ], // CT
+        ["-828.4 -2460.3 -149.1 4.3 46.2", "-455.7 -2005.6 207.1 38.3 39.4"], // Knife
+        ["-55.2 -516.6 -123.9 -1.3 -179.2", "-629.4 -517.6 -122.4 -1.5 -178.3"], // Catwalk
+        ["-656.6 -609.0 -193.1 -6.0 -90.0", "-656.2 -1503.4 -106.9 0.5 -89.7"], // Con - A
+        ["253.8 -2285.2 -9.8 0.4 -0.7", "954.1 -2285.1 -8.4 1.5 -0.4"], // Palace
+        ["-494.9 -2352.4 -74.9 13.8 -173.0", "-1717.9 -2371.3 -18.7 14.7 77.7"], // A - CT
+        ["-1658.9 -608.5 -156.6 2.6 179.9", "-2303.7 -608.8 -160.9 -1.0 179.9"], // Market
+        ["-2111.9 756.0 -13.9 1.9 0.3", "-1021.3 769.1 -6.8 10.7 -88.5"], // B - Apps
+        ["1295.9 441.1 -236.4 5.2 -91.9", "1299.4 -30.2 29.2 44.8 -88.9"], // T (up the stairs)
+      ];
+      const nukeTransitions = [
+        [
+          "-1412.0 -1098.8 -371.1 4.8 -177.0",
+          "-1643.7 -1289.9 -307.6 24.2 126.2",
+        ], // T
+        ["2447.3 -393.4 -319.9 2.4 -2.9", "1787.4 -381.6 -105.9 26.6 -0.6"], // CT
+        ["-672.2 -1314.5 -355.9 7.2 -50.5", "86.3 -2150.0 106.9 46.6 15.1"], // Knife
+        ["-116.5 -876.0 120.3 -2.1 0.6", "1015.2 -875.6 165.2 22.8 0.7"], // Roof A
+        ["1920.3 -352.9 -285.8 -1.3 -121.4", "345.4 -2825.5 -122.9 6.5 119.1"], // CT - Outside
+        ["-695.4 -3114.8 -73.5 10.5 72.3", "1340.6 -1649.8 -183.5 11.1 179.6"], // River - Main
+        ["1139.1 -2413.4 -343.4 14.6 0.5", "1589.0 -2417.8 -483.9 14.0 103.3"], // Outside - Secret
+        [
+          "780.7 -1434.4 -579.3 -0.7 -179.3",
+          "433.3 -1435.7 -572.3 -72.7 179.9",
+        ], // Vent down
+        ["426.7 -1443.7 -355.7 9.4 70.4", "472.9 -1430.8 -404.5 -3.5 133.3"], // Vent up
+        ["-35.7 -1181.1 -128.4 3.2 178.9", "-1732.2 -1165.4 -164.0 40.7 150.8"], // Roof - T
+      ];
+      const overTransitions = [
+        [
+          "-1096.3 -3137.6 294.8 -5.9 -148.2",
+          "-1351.7 -2908.4 299.7 -6.8 -110.6",
+        ], // T
+        ["-1884.1 948.0 517.9 2.0 -149.7", "-2525.2 379.2 702.3 33.1 60.4"], // CT
+        [
+          "-2404.8 -1068.1 470.2 -13.1 -118.9",
+          "-2791.7 -1673.0 733.1 30.2 -38.2",
+        ], // Knife
+        ["-2104.3 -66.0 687.7 29.9 -0.2", "-1945.1 -919.2 651.4 14.8 -154.9"], // Banana - Mid
+        ["-2490.8 -1314.2 517.1 10.6 -0.4", "-1842.4 -1291.6 342.7 24.0 121.1"], // Mid - Con
+        ["-2002.5 -1040.0 204.5 -6.0 0.1", "-1241.8 -1039.2 285.0 23.8 115.8"], // Con - Short
+        ["-518.5 -734.9 52.6 -3.2 89.3", "-525.5 -378.9 63.6 -0.7 89.0"], // Monster - B
+        ["-407.7 -201.8 513.7 -3.3 157.1", "-2237.5 726.5 670.9 48.5 152.8"], // Highway - A
+        ["-2091.8 456.2 673.3 9.7 118.6", "-2698.3 1569.5 456.1 12.0 -15.9"], // Truck - Bank
+        ["-1633.5 -2141.7 427.7 5.3 1.0", "-354.1 -2119.1 309.3 4.7 -128.4"], // Con - T
+      ];
+      const infeTransitions = [
+        ["-1212.8 263.4 -1.2 -1.0 -156.0", "-1731.6 81.6 -5.0 3.2 59.6"], // T
+        ["2251.3 2515.0 194.8 1.0 -53.7", "2250.8 1772.7 373.7 37.4 58.3"], // CT
+        ["1274.7 468.7 151.9 -1.9 74.6", "1051.2 511.6 521.5 45.8 -179.9"], // Knife
+        ["1837.5 -320.9 279.0 4.0 -176.5", "1352.3 -322.1 279.2 -0.7 -179.3"], // Apps
+        ["1255.9 29.7 289.1 -0.9 -175.0", "-838.2 -152.5 323.2 21.9 86.7"], // Apps - 2nd Mid
+        ["-454.3 317.1 228.1 0.9 0.2", "10.7 317.9 248.6 4.8 -147.1"], // T kitchen
+        ["615.1 473.5 296.5 14.6 87.2", "610.0 852.3 225.8 12.6 46.3"], // Mid trees
+        ["81.9 985.4 93.0 -12.3 75.9", "590.5 3006.9 545.7 44.8 -49.3"], // Banana - B
+        ["1642.3 1637.5 186.6 -0.3 89.7", "1640.3 2829.3 221.8 15.3 94.8"], // Speedway - B
+        ["2445.0 2643.2 404.5 21.5 -31.9", "2413.9 1602.5 484.2 26.1 44.6"], // Outside of CT
+      ];
+      const vertTransitions = [
+        [
+          "-1768.6 -1432.5 11522.8 -1.2 31.3",
+          " -1949.0 -1001.5 11693.3 21.5 -25.8",
+        ], // T
+        ["-1269.9 987.7 11833.6 -0.7 -30.", "-1109.7 480.9 11834.6 -3.3 76.4"], // CT
+        [
+          "-1781.8 -533.2 11808.9 -2.4 36.2",
+          "-1300.4 -396.9 11880.6 10.5 157.5",
+        ], // Knife
+        ["-882.8 90.0 11820.1 -7.9 168.4", "-2502.6 422.0 12050.7 30.1 -61.6"], // Mid - B
+        ["-2725.6 -478.2 11198.9 -1.1 26.5", "-2797.6 983.2 11920.9 9.1 -16.7"], // Stars - B
+        [
+          "-1918.7 -653.8 11795.3 -30.4 89.9",
+          "-1916.5 206.4 12299.8 37.8 104.7",
+        ], // T Mid - B
+        [
+          "-1252.1 -711.9 11490.8 -88.9 89.6",
+          "-1252.8 -707.2 11773.5 -89.0 89.1",
+        ], // Ladder up
+        ["369.4 730.2 11837.5 -3.0 173.4", "-1529.5 949.8 11938.6 23.5 -62.4"], // Outside CT - Window
+        [
+          "-1695.7 1113.4 11784.1 -7.5 -176.9",
+          "-2570.2 1113.1 11784.7 -1.8 -179.2",
+        ], // B reling
+        [
+          "-1352.6 2019.9 11651.0 1.3 -93.6",
+          "-1535.1 -870.3 11585.9 8.8 -163.9",
+        ], // Outside - T
+      ];
 
-            document.getElementById(map).style.visibility = 'visible';
-            document.getElementById(map).style.height = 'auto';
-        });
+      socket.on("csgo-gsi-update", (gs) => {
+        gamestate = gs;
+        map = gamestate?.map;
 
-        let camRandomTransitionInterval;
-        function randomTransitions(transitions) {
-            clearInterval(camRandomTransitionInterval);
-            const intervalTime = 20;
-            const r = Array.from(Array(transitions.length).keys()).sort((a, b) => 0.5 - Math.random());
-            camTransition(transitions[r[0]], intervalTime);
-            let c = 1;
-            camRandomTransitionInterval = setInterval(() => {
-                console.log(`Perform random transition number ${c}`);
-                camTransition(transitions[r[c]], intervalTime);
-                c = (c + 1) % transitions.length;
-            }, intervalTime * 1000);
+        if (map === undefined) {
+          return;
         }
 
-        // spec_mode 4 --> first person
-        // spec_mode 5 --> third person
-        // spec_mode 6 --> free flight
-        document.getElementById('btn_reset').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4');
-            clearInterval(camRandomTransitionInterval);
-        };
-        // swap player sides
-        document.getElementById('btn_swap_sides_on').onclick = () => {
-            socket.emit('cs-exec', 'cl_spec_swapplayersides 1');
-        };
-        document.getElementById('btn_swap_sides_off').onclick = () => {
-            socket.emit('cs-exec', 'cl_spec_swapplayersides 0');
-        };
+        // make all divs invisible
+        document.getElementById("de_ancient").style.visibility = "hidden";
+        document.getElementById("de_ancient").style.height = "0";
+        document.getElementById("de_dust2").style.visibility = "hidden";
+        document.getElementById("de_dust2").style.height = "0";
+        document.getElementById("de_mirage").style.visibility = "hidden";
+        document.getElementById("de_mirage").style.height = "0";
+        document.getElementById("de_nuke").style.visibility = "hidden";
+        document.getElementById("de_nuke").style.height = "0";
+        document.getElementById("de_overpass").style.visibility = "hidden";
+        document.getElementById("de_overpass").style.height = "0";
+        document.getElementById("de_inferno").style.visibility = "hidden";
+        document.getElementById("de_inferno").style.height = "0";
+        document.getElementById("de_vertigo").style.visibility = "hidden";
+        document.getElementById("de_vertigo").style.height = "0";
 
-        function camTransition(pos, t) {
-            socket.emit('cs-exec', `spec_mode 4; spec_mode 6; spec_goto ${pos[0]}; spec_lerpto ${pos[1]} ${t} ${t}`);
-        }
+        document.getElementById(map).style.visibility = "visible";
+        document.getElementById(map).style.height = "auto";
 
-        function camPos(pos) {
-            socket.emit('cs-exec', `spec_mode 4; spec_mode 6; spec_goto ${pos}`);
-        }
+        // auto trigger randomTransitions
+        //if (
+        //  gamestate?.phase_countdowns?.phase === "freezetime" ||
+        //  gamestate?.phase_countdowns?.phase === "timeout"
+        //) {
+        //  if (!autoTransitionsRunning) {
+        //    autoTransitionsRunning = true;
+        //    console.log("start auto transitions");
+        //    switch (map) {
+        //      case "de_ancient":
+        //        randomTransitions(ancientTransitions);
+        //        break;
+        //      case "de_dust2":
+        //        randomTransitions(dustTransitions);
+        //        break;
+        //      case "de_mirage":
+        //        randomTransitions(mirageTransitions);
+        //        break;
+        //      case "de_nuke":
+        //        randomTransitions(nukeTransitions);
+        //        break;
+        //      case "de_overpass":
+        //        randomTransitions(overTransitions);
+        //        break;
+        //      case "de_inferno":
+        //        randomTransitions(infeTransitions);
+        //        break;
+        //      case "de_vertigo":
+        //        randomTransitions(vertTransitions);
+        //        break;
+        //      default:
+        //        break;
+        //    }
+        //  }
+        //} else {
+        //  if (autoTransitionsRunning) {
+        //    autoTransitionsRunning = false;
+        //    socket.emit("cs-exec", "spec_mode 4");
+        //    clearInterval(camRandomTransitionInterval);
+        //    console.log("end auto transitions");
+        //  }
+        //}
+      });
 
-        // Ancient
-        const ancientTransitions = [
-            ["-248.4 -2435.3 -2.9 26.7 143.5", "-233.9 -2081.5 3.5 24.6 -147.7"],   // T
-            ["-537.4 1046.7 193.4 21.4 74.7", "-115.9 1072.8 186.4 19.4 120.7"],    // CT
-            ["-523.0 524.5 192.8 6.8 89.2", "-424.8 -868.1 270.3 29.1 148.6"],    // Knife
-            ["-1051.1 -822.4 108.9 5.6 32.0", "-212.9 -775.1 240.2 14.2 127.5"],    // Mid - Speedway
-            ["-1362.0 -62.6 129.1 1.6 88.6", "-1383.1 1023.5 125.1 -1.5 90.3"],     // Donut - Temple
-            ["605.5 1015.6 411.7 29.7 -70.4", "1438.2 -789.9 364.6 34.7 176.4"],    // B - Banana
-            ["-513.5 909.8 140.6 -1.4 -91.0", "-495.2 -545.7 342.3 9.5 -89.5"],     // Window - Mid
-            ["1296.1 -1840.9 22.3 11.6 177.6", "-137.1 -1842.5 -122.4 2.3 178.6"],  // T Spawn - B
-            ["426.9 -1892.8 -125.4 -12.9 48.0", "1397.8 -831.2 508.6 22.7 118.8"],  // T Spawn Tunnel - B Banana Door
-            ["1359.9 -837.7 72.5 -4.4 105.6", "1078.6 112.8 204.3 -0.6 112.9"],  // Banana - B
-            ["327.3 263.4 200.9 7.1 -76.9", "484.8 -409.9 228.1 4.1 -139.7"],  // Maze - Speedway
-            ["-67.9 -850.9 305.3 14.6 4.2", "1080.4 -778.3 70.6 5.7 4.4"],  // Speedway - Banana
-            ["221.8 1570.2 404.3 26.6 -153.7", "-1518.2 788.7 306.3 24.7 -134.4"]  // CT - A
-        ];
-        //const ancientTransitionsShuffled = ancientTransitions.sort((a, b) => 0.5 - Math.random());
-        document.getElementById('ancient_t').onclick = () => {
-            camTransition(ancientTransitions[0], 15);
-        };
-        document.getElementById('ancient_ct').onclick = () => {
-            camTransition(ancientTransitions[1], 15);
-        };
-        document.getElementById('ancient_knife').onclick = () => {
-            camTransition(ancientTransitions[2], 3);
-        };
-        document.getElementById('ancient_a').onclick = () => {
-            camPos("-2086.3 694.9 390.5 23.5 13.9");
-        };
-        document.getElementById('ancient_b').onclick = () => {
-            camPos("1355.3 406.8 624.4 49.8 -140.3");
-        };
-        document.getElementById('ancient_rand').onclick = () => {
-            randomTransitions(ancientTransitions);
-        };
-        // Dust
-        const dustTransitions = [
-            ["-1248.4 -924.5 215.4 11.4 31.2", "45.2 -1045.9 183.7 8.3 147.2"],   // T
-            ["56.7 2056.2 -103.9 -9.7 58.3", "489.1 2083.1 -100.0 -10.8 128.1"],    // CT
-            ["1410.6 1901.7 28.5 -0.1 117.3", "1565.2 801.9 251.7 18.0 162.4"],    // Knife
-            ["-421.1 -559.1 60.0 1.5 91.6", "-417.9 1259.5 -5.9 5.8 89.8"],    // Mid down
-            ["-412.0 1818.6 -112.1 -2.4 -89.7", "-408.2 779.7 13.1 -8.3 -89.5"],    // Mid up
-            ["-1071.4 1408.6 -66.9 -12.2 -93.5", "-1125.4 1072.9 95.5 5.6 172.5"],    // Tunnel lower - upper
-            ["-1989.6 1096.5 83.8 2.2 90.2", "-1994.9 2407.5 85.8 -0.9 90.0"],    // Tunnel - B
-            ["-1271.0 2190.9 40.7 8.3 1.7", "692.1 2107.9 -40.5 4.7 134.0"],    // B - CT
-            ["651.1 2603.6 166.7 6.8 -107.9", "267.3 1347.7 209.8 20.9 172.1"],    // A - Short
-            ["638.8 -266.6 94.5 1.6 95.6", "640.0 949.8 93.5 7.9 92.3"]    // T - Long (double doors)
-        ];
-        document.getElementById('dust_t').onclick = () => {
-            camTransition(dustTransitions[0], 15);
-        };
-        document.getElementById('dust_ct').onclick = () => {
-            camTransition(dustTransitions[1], 15);
-        };
-        document.getElementById('dust_knife').onclick = () => {
-            camTransition(dustTransitions[2], 3);
-        };
-        document.getElementById('dust_a').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4; spec_mode 6; spec_goto 1487.7 2995.0 399.2 24.7 -117.4');
-        };
-        document.getElementById('dust_b').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4; spec_mode 6; spec_goto -2143.9 1827.8 447.5 39.3 50.5');
-        };
-        document.getElementById('dust_rand').onclick = () => {
-            randomTransitions(dustTransitions);
-        };
-        // Mirage
-        const mirageTransitions = [
-            ["1098.8 215.7 -120.6 5.6 -52.5", "1119.1 -550.2 -132.5 0.3 53.62"],   // T
-            ["-1480.1 -1591.9 -165.1 8.9 -130.8", "-1455.1 -2184.5 -147.0 15.4 125.3"],    // CT
-            ["-828.4 -2460.3 -149.1 4.3 46.2", "-455.7 -2005.6 207.1 38.3 39.4"],    // Knife
-            ["-55.2 -516.6 -123.9 -1.3 -179.2", "-629.4 -517.6 -122.4 -1.5 -178.3"],    // Catwalk
-            ["-656.6 -609.0 -193.1 -6.0 -90.0", "-656.2 -1503.4 -106.9 0.5 -89.7"],    // Con - A
-            ["253.8 -2285.2 -9.8 0.4 -0.7", "954.1 -2285.1 -8.4 1.5 -0.4"],    // Palace
-            ["-494.9 -2352.4 -74.9 13.8 -173.0", "-1717.9 -2371.3 -18.7 14.7 77.7"],    // A - CT
-            ["-1658.9 -608.5 -156.6 2.6 179.9", "-2303.7 -608.8 -160.9 -1.0 179.9"],    // Market
-            ["-2111.9 756.0 -13.9 1.9 0.3", "-1021.3 769.1 -6.8 10.7 -88.5"],    // B - Apps
-            ["1295.9 441.1 -236.4 5.2 -91.9", "1299.4 -30.2 29.2 44.8 -88.9"],    // T (up the stairs)
-        ];
-        document.getElementById('mirage_t').onclick = () => {
-            camTransition(mirageTransitions[0], 15);
-        };
-        document.getElementById('mirage_ct').onclick = () => {
-            camTransition(mirageTransitions[1], 15);
-        };
-        document.getElementById('mirage_knife').onclick = () => {
-            camTransition(mirageTransitions[2], 3);
-        };
-        document.getElementById('mirage_a').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4; spec_mode 6; spec_goto 6.8 -2088.8 163.9 32.2 169.7');
-        };
-        document.getElementById('mirage_b').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4; spec_mode 6; spec_goto -2381.1 813.0 277.3 33.2 -49.5');
-        };
-        document.getElementById('mirage_rand').onclick = () => {
-            randomTransitions(mirageTransitions);
-        };
-        // Nuke
-        const nukeTransitions = [
-            ["-1412.0 -1098.8 -371.1 4.8 -177.0", "-1643.7 -1289.9 -307.6 24.2 126.2"],   // T
-            ["2447.3 -393.4 -319.9 2.4 -2.9", "1787.4 -381.6 -105.9 26.6 -0.6"],    // CT
-            ["-672.2 -1314.5 -355.9 7.2 -50.5", "86.3 -2150.0 106.9 46.6 15.1"],    // Knife
-            ["-116.5 -876.0 120.3 -2.1 0.6", "1015.2 -875.6 165.2 22.8 0.7"],    // Roof A
-            ["1920.3 -352.9 -285.8 -1.3 -121.4", "345.4 -2825.5 -122.9 6.5 119.1"],    // CT - Outside
-            ["-695.4 -3114.8 -73.5 10.5 72.3", "1340.6 -1649.8 -183.5 11.1 179.6"],    // River - Main
-            ["1139.1 -2413.4 -343.4 14.6 0.5", "1589.0 -2417.8 -483.9 14.0 103.3"],    // Outside - Secret
-            ["780.7 -1434.4 -579.3 -0.7 -179.3", "433.3 -1435.7 -572.3 -72.7 179.9"],    // Vent down
-            ["426.7 -1443.7 -355.7 9.4 70.4", "472.9 -1430.8 -404.5 -3.5 133.3"],    // Vent up
-            ["-35.7 -1181.1 -128.4 3.2 178.9", "-1732.2 -1165.4 -164.0 40.7 150.8"],    // Roof - T
-        ];
-        document.getElementById('nuke_t').onclick = () => {
-            camTransition(nukeTransitions[0], 15);
-        };
-        document.getElementById('nuke_ct').onclick = () => {
-            camTransition(nukeTransitions[1], 15);
-        };
-        document.getElementById('nuke_knife').onclick = () => {
-            camTransition(nukeTransitions[2], 3);
-        };
-        document.getElementById('nuke_a').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4; spec_mode 6; spec_goto 842.1 -289.8 -8.0 37.3 -103.5');
-        };
-        document.getElementById('nuke_b').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4; spec_mode 6; spec_goto 882.4 -428.9 -510.3 34.0 -114.9');
-        };
-        document.getElementById('nuke_rand').onclick = () => {
-            randomTransitions(nukeTransitions);
-        };
-        
-        // Overpass
-        const overTransitions = [
-            ["-1096.3 -3137.6 294.8 -5.9 -148.2", "-1351.7 -2908.4 299.7 -6.8 -110.6"],   // T
-            ["-1884.1 948.0 517.9 2.0 -149.7", "-2525.2 379.2 702.3 33.1 60.4"],    // CT
-            ["-2404.8 -1068.1 470.2 -13.1 -118.9", "-2791.7 -1673.0 733.1 30.2 -38.2"],    // Knife
-            ["-2104.3 -66.0 687.7 29.9 -0.2", "-1945.1 -919.2 651.4 14.8 -154.9"],    // Banana - Mid
-            ["-2490.8 -1314.2 517.1 10.6 -0.4", "-1842.4 -1291.6 342.7 24.0 121.1"],    // Mid - Con
-            ["-2002.5 -1040.0 204.5 -6.0 0.1", "-1241.8 -1039.2 285.0 23.8 115.8"],    // Con - Short
-            ["-518.5 -734.9 52.6 -3.2 89.3", "-525.5 -378.9 63.6 -0.7 89.0"],    // Monster - B
-            ["-407.7 -201.8 513.7 -3.3 157.1", "-2237.5 726.5 670.9 48.5 152.8"],    // Highway - A
-            ["-2091.8 456.2 673.3 9.7 118.6", "-2698.3 1569.5 456.1 12.0 -15.9"],    // Truck - Bank
-            ["-1633.5 -2141.7 427.7 5.3 1.0", "-354.1 -2119.1 309.3 4.7 -128.4"],    // Con - T
-        ];
-        document.getElementById('over_t').onclick = () => {
-            camTransition(overTransitions[0], 15);
-        };
-        document.getElementById('over_ct').onclick = () => {
-            camTransition(overTransitions[1], 15);
-        };
-        document.getElementById('over_knife').onclick = () => {
-            camTransition(overTransitions[2], 3);
-        };
-        document.getElementById('over_a').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4; spec_mode 6; spec_goto -2000.7 415.9 833.9 37.4 135.1');
-        };
-        document.getElementById('over_b').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4; spec_mode 6; spec_goto -1491.5 516.3 333.0 27.2 -43.1');
-        };
-        document.getElementById('over_rand').onclick = () => {
-            randomTransitions(overTransitions);
-        };
+      let camRandomTransitionInterval;
+      function randomTransitions(transitions) {
+        clearInterval(camRandomTransitionInterval);
+        const intervalTime = 20;
+        const r = Array.from(Array(transitions.length).keys()).sort(
+          (a, b) => 0.5 - Math.random()
+        );
+        camTransition(transitions[r[0]], intervalTime);
+        let c = 1;
+        camRandomTransitionInterval = setInterval(() => {
+          console.log(`Perform random transition number ${c}`);
+          camTransition(transitions[r[c]], intervalTime);
+          c = (c + 1) % transitions.length;
+        }, intervalTime * 1000);
+      }
 
-        // Inferno
-        const infeTransitions = [
-            ["-1212.8 263.4 -1.2 -1.0 -156.0", "-1731.6 81.6 -5.0 3.2 59.6"],   // T
-            ["2251.3 2515.0 194.8 1.0 -53.7", "2250.8 1772.7 373.7 37.4 58.3"],    // CT
-            ["1274.7 468.7 151.9 -1.9 74.6", "1051.2 511.6 521.5 45.8 -179.9"],    // Knife
-            ["1837.5 -320.9 279.0 4.0 -176.5", "1352.3 -322.1 279.2 -0.7 -179.3"],    // Apps
-            ["1255.9 29.7 289.1 -0.9 -175.0", "-838.2 -152.5 323.2 21.9 86.7"],    // Apps - 2nd Mid
-            ["-454.3 317.1 228.1 0.9 0.2", "10.7 317.9 248.6 4.8 -147.1"],    // T kitchen
-            ["615.1 473.5 296.5 14.6 87.2", "610.0 852.3 225.8 12.6 46.3"],    // Mid trees
-            ["81.9 985.4 93.0 -12.3 75.9", "590.5 3006.9 545.7 44.8 -49.3"],    // Banana - B
-            ["1642.3 1637.5 186.6 -0.3 89.7", "1640.3 2829.3 221.8 15.3 94.8"],    // Speedway - B
-            ["2445.0 2643.2 404.5 21.5 -31.9", "2413.9 1602.5 484.2 26.1 44.6"],    // Outside of CT
-        ];
-        document.getElementById('infe_t').onclick = () => {
-            camTransition(infeTransitions[0], 15);
-        };
-        document.getElementById('infe_ct').onclick = () => {
-            camTransition(infeTransitions[1], 15);
-        };
-        document.getElementById('infe_knife').onclick = () => {
-            camTransition(infeTransitions[2], 3);
-        };
-        document.getElementById('infe_a').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4; spec_mode 6; spec_goto 2437.2 -504.4 512.7 26.6 119.3');
-        };
-        document.getElementById('infe_b').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4; spec_mode 6; spec_goto 249.1 2436.3 519.6 43.9 76.6');
-        };
-        document.getElementById('infe_rand').onclick = () => {
-            randomTransitions(infeTransitions);
-        };
+      // spec_mode 4 --> first person
+      // spec_mode 5 --> third person
+      // spec_mode 6 --> free flight
+      document.getElementById("btn_reset").onclick = () => {
+        socket.emit("cs-exec", "spec_mode 4");
+        clearInterval(camRandomTransitionInterval);
+      };
+      // swap player sides
+      document.getElementById("btn_swap_sides_on").onclick = () => {
+        socket.emit("cs-exec", "cl_spec_swapplayersides 1");
+      };
+      document.getElementById("btn_swap_sides_off").onclick = () => {
+        socket.emit("cs-exec", "cl_spec_swapplayersides 0");
+      };
 
-        // Vertigo
-        const vertTransitions = [
-            ["-1768.6 -1432.5 11522.8 -1.2 31.3", " -1949.0 -1001.5 11693.3 21.5 -25.8"],   // T
-            ["-1269.9 987.7 11833.6 -0.7 -30.", "-1109.7 480.9 11834.6 -3.3 76.4"],    // CT
-            ["-1781.8 -533.2 11808.9 -2.4 36.2", "-1300.4 -396.9 11880.6 10.5 157.5"],    // Knife
-            ["-882.8 90.0 11820.1 -7.9 168.4", "-2502.6 422.0 12050.7 30.1 -61.6"],    // Mid - B
-            ["-2725.6 -478.2 11198.9 -1.1 26.5", "-2797.6 983.2 11920.9 9.1 -16.7"],    // Stars - B
-            ["-1918.7 -653.8 11795.3 -30.4 89.9", "-1916.5 206.4 12299.8 37.8 104.7"],    // T Mid - B
-            ["-1252.1 -711.9 11490.8 -88.9 89.6", "-1252.8 -707.2 11773.5 -89.0 89.1"],    // Ladder up
-            ["369.4 730.2 11837.5 -3.0 173.4", "-1529.5 949.8 11938.6 23.5 -62.4"],    // Outside CT - Window
-            ["-1695.7 1113.4 11784.1 -7.5 -176.9", "-2570.2 1113.1 11784.7 -1.8 -179.2"],    // B reling
-            ["-1352.6 2019.9 11651.0 1.3 -93.6", "-1535.1 -870.3 11585.9 8.8 -163.9"],    // Outside - T
-        ];
-        document.getElementById('vert_t').onclick = () => {
-            camTransition(vertTransitions[0], 15);
-        };
-        document.getElementById('vert_ct').onclick = () => {
-            camTransition(vertTransitions[1], 15);
-        };
-        document.getElementById('vert_knife').onclick = () => {
-            camTransition(vertTransitions[2], 3);
-        };
-        document.getElementById('vert_a').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4; spec_mode 6; spec_goto -13.9 -1161.3 12247.4 33.8 146.2');
-        };
-        document.getElementById('vert_b').onclick = () => {
-            socket.emit('cs-exec', 'spec_mode 4; spec_mode 6; spec_goto -2830.0 1003.7 12023.2 23.0 -20.3');
-        };
-        document.getElementById('vert_rand').onclick = () => {
-            randomTransitions(vertTransitions);
-        };
+      document.getElementById("btn_volume0").onclick = () => {
+        socket.emit("cs-exec", "volume 0");
+      };
+
+      document.getElementById("btn_volume2").onclick = () => {
+        socket.emit("cs-exec", "volume 0.2");
+      };
+
+      function camTransition(pos, t) {
+        socket.emit(
+          "cs-exec",
+          `spec_mode 4; spec_mode 6; spec_goto ${pos[0]}; spec_lerpto ${pos[1]} ${t} ${t}`
+        );
+      }
+
+      function camPos(pos) {
+        socket.emit("cs-exec", `spec_mode 4; spec_mode 6; spec_goto ${pos}`);
+      }
+
+      // Ancient
+      //const ancientTransitionsShuffled = ancientTransitions.sort((a, b) => 0.5 - Math.random());
+      document.getElementById("ancient_t").onclick = () => {
+        camTransition(ancientTransitions[0], 15);
+      };
+      document.getElementById("ancient_ct").onclick = () => {
+        camTransition(ancientTransitions[1], 15);
+      };
+      document.getElementById("ancient_knife").onclick = () => {
+        camTransition(ancientTransitions[2], 3);
+      };
+      document.getElementById("ancient_a").onclick = () => {
+        camPos("-2086.3 694.9 390.5 23.5 13.9");
+      };
+      document.getElementById("ancient_b").onclick = () => {
+        camPos("1355.3 406.8 624.4 49.8 -140.3");
+      };
+      document.getElementById("ancient_rand").onclick = () => {
+        randomTransitions(ancientTransitions);
+      };
+      // Dust
+      document.getElementById("dust_t").onclick = () => {
+        camTransition(dustTransitions[0], 15);
+      };
+      document.getElementById("dust_ct").onclick = () => {
+        camTransition(dustTransitions[1], 15);
+      };
+      document.getElementById("dust_knife").onclick = () => {
+        camTransition(dustTransitions[2], 3);
+      };
+      document.getElementById("dust_a").onclick = () => {
+        socket.emit(
+          "cs-exec",
+          "spec_mode 4; spec_mode 6; spec_goto 1487.7 2995.0 399.2 24.7 -117.4"
+        );
+      };
+      document.getElementById("dust_b").onclick = () => {
+        socket.emit(
+          "cs-exec",
+          "spec_mode 4; spec_mode 6; spec_goto -2143.9 1827.8 447.5 39.3 50.5"
+        );
+      };
+      document.getElementById("dust_rand").onclick = () => {
+        randomTransitions(dustTransitions);
+      };
+      // Mirage
+      document.getElementById("mirage_t").onclick = () => {
+        camTransition(mirageTransitions[0], 15);
+      };
+      document.getElementById("mirage_ct").onclick = () => {
+        camTransition(mirageTransitions[1], 15);
+      };
+      document.getElementById("mirage_knife").onclick = () => {
+        camTransition(mirageTransitions[2], 3);
+      };
+      document.getElementById("mirage_a").onclick = () => {
+        socket.emit(
+          "cs-exec",
+          "spec_mode 4; spec_mode 6; spec_goto 6.8 -2088.8 163.9 32.2 169.7"
+        );
+      };
+      document.getElementById("mirage_b").onclick = () => {
+        socket.emit(
+          "cs-exec",
+          "spec_mode 4; spec_mode 6; spec_goto -2381.1 813.0 277.3 33.2 -49.5"
+        );
+      };
+      document.getElementById("mirage_rand").onclick = () => {
+        randomTransitions(mirageTransitions);
+      };
+      // Nuke
+      document.getElementById("nuke_t").onclick = () => {
+        camTransition(nukeTransitions[0], 15);
+      };
+      document.getElementById("nuke_ct").onclick = () => {
+        camTransition(nukeTransitions[1], 15);
+      };
+      document.getElementById("nuke_knife").onclick = () => {
+        camTransition(nukeTransitions[2], 3);
+      };
+      document.getElementById("nuke_a").onclick = () => {
+        socket.emit(
+          "cs-exec",
+          "spec_mode 4; spec_mode 6; spec_goto 842.1 -289.8 -8.0 37.3 -103.5"
+        );
+      };
+      document.getElementById("nuke_b").onclick = () => {
+        socket.emit(
+          "cs-exec",
+          "spec_mode 4; spec_mode 6; spec_goto 882.4 -428.9 -510.3 34.0 -114.9"
+        );
+      };
+      document.getElementById("nuke_rand").onclick = () => {
+        randomTransitions(nukeTransitions);
+      };
+
+      // Overpass
+      document.getElementById("over_t").onclick = () => {
+        camTransition(overTransitions[0], 15);
+      };
+      document.getElementById("over_ct").onclick = () => {
+        camTransition(overTransitions[1], 15);
+      };
+      document.getElementById("over_knife").onclick = () => {
+        camTransition(overTransitions[2], 3);
+      };
+      document.getElementById("over_a").onclick = () => {
+        socket.emit(
+          "cs-exec",
+          "spec_mode 4; spec_mode 6; spec_goto -2000.7 415.9 833.9 37.4 135.1"
+        );
+      };
+      document.getElementById("over_b").onclick = () => {
+        socket.emit(
+          "cs-exec",
+          "spec_mode 4; spec_mode 6; spec_goto -1491.5 516.3 333.0 27.2 -43.1"
+        );
+      };
+      document.getElementById("over_rand").onclick = () => {
+        randomTransitions(overTransitions);
+      };
+
+      // Inferno
+      document.getElementById("infe_t").onclick = () => {
+        camTransition(infeTransitions[0], 15);
+      };
+      document.getElementById("infe_ct").onclick = () => {
+        camTransition(infeTransitions[1], 15);
+      };
+      document.getElementById("infe_knife").onclick = () => {
+        camTransition(infeTransitions[2], 3);
+      };
+      document.getElementById("infe_a").onclick = () => {
+        socket.emit(
+          "cs-exec",
+          "spec_mode 4; spec_mode 6; spec_goto 2437.2 -504.4 512.7 26.6 119.3"
+        );
+      };
+      document.getElementById("infe_b").onclick = () => {
+        socket.emit(
+          "cs-exec",
+          "spec_mode 4; spec_mode 6; spec_goto 249.1 2436.3 519.6 43.9 76.6"
+        );
+      };
+      document.getElementById("infe_rand").onclick = () => {
+        randomTransitions(infeTransitions);
+      };
+
+      // Vertigo
+      document.getElementById("vert_t").onclick = () => {
+        camTransition(vertTransitions[0], 15);
+      };
+      document.getElementById("vert_ct").onclick = () => {
+        camTransition(vertTransitions[1], 15);
+      };
+      document.getElementById("vert_knife").onclick = () => {
+        camTransition(vertTransitions[2], 3);
+      };
+      document.getElementById("vert_a").onclick = () => {
+        socket.emit(
+          "cs-exec",
+          "spec_mode 4; spec_mode 6; spec_goto -13.9 -1161.3 12247.4 33.8 146.2"
+        );
+      };
+      document.getElementById("vert_b").onclick = () => {
+        socket.emit(
+          "cs-exec",
+          "spec_mode 4; spec_mode 6; spec_goto -2830.0 1003.7 12023.2 23.0 -20.3"
+        );
+      };
+      document.getElementById("vert_rand").onclick = () => {
+        randomTransitions(vertTransitions);
+      };
     </script>
-</body>
-
+  </body>
 </html>

@@ -28,6 +28,10 @@ app.get('/spec', (req, res) => {
     res.sendFile(__dirname + '/spec.html');
 });
 
+app.get('/pauseScreen', (req, res) => {
+    res.sendFile(__dirname + '/pauseScreen.html');
+});
+
 let csgoconsole;
 if (config.use_telnet) {
     csgoconsole = new CsgoConsole();

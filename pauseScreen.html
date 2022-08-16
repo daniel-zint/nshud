@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/chat-box.css">
+
+    <title>nsHUD Break</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            font-size: 1em;
+        }
+
+        #score {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            height: auto;
+            transform: translate(-50%,-50%);
+        }
+
+        #teams {
+            background-color: var(--color_background_default);
+            display: grid;
+            grid-template-columns: 4em 14em 4em 14em 4em;
+            padding: 5px;
+        }
+
+        #maps {
+            margin-top: 2px;
+            background-color: var(--color_background_default);
+            display: grid;
+            grid-template-columns: 1fr 10em 1fr;
+            padding: 5px;
+        }
+
+        #maps div,#teams div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5em;
+        }
+
+        .team-avatar img {
+            width: 2.5em;
+            height: auto;
+        }
+
+        .left {
+            justify-self: left;
+        }
+
+        .right {
+            justify-self: right;
+        }
+
+        .win {
+            color: greenyellow;
+        }
+
+        .loose {
+            color:rgb(255, 94, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="score">
+        <div id="teams">
+            <div class="team-avatar right" id="team_left_avatar"><img src="icons/no_symbol.png"></div>
+            <div class="team-name left" id="team_name_left">Team1</div>
+            <div>vs</div>
+            <div class="team-name right" id="team_name_right">Team2</div>
+            <div class="team-avatar left" id="team_right_avatar"><img src="icons/no_symbol.png"></div>
+        </div>
+        <div id="maps">
+            <div class="score right">0</div>
+            <div class="map-name">Map Name</div>
+            <div class="score left">0</div>
+        </div>
+    </div>
+
+    <script src="js/colors.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/pauseScreen.js"></script>
+</body>
+
+</html>
