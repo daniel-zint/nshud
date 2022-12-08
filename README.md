@@ -1,4 +1,4 @@
-# nshud - A Simple Spectator Hud for CS:GO
+# bwmhud - The HUD used for the Wingman Tournament by BreS:GO
 ![nshud example](nshud-example.png)
 ## Background
 This hud is designed for all the CS:GO casters that are desperately looking for **free** a custom spectator hud. I created this hud in my free time and I want to share it with you. It is equipped with an MIT license so that you can use and modify it in any way you want.
