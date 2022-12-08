@@ -2,7 +2,7 @@
     "team_info": "teaminfo.json",
 
     "show_team_avatars": true,
-    "show_player_avatars": true,
+    "show_player_avatars": false,
     "steam_api_key": "",
 
     "use_telnet": true

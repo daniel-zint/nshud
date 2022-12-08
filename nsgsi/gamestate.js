@@ -1,6 +1,6 @@
 const Player = require('./player.js');
 
-
+const playercount = 10;
 
 const ROUND_WIN_TYPES = {
     "t_win_elimination": 0,
@@ -31,9 +31,10 @@ class GameState {
         this.round_wins = [];
         this.phase_countdowns = {};
         this.players = [];
-        for (let i = 0; i < 10; ++i) {
+        for (let i = 0; i < playercount; ++i) {
             this.players.push(new Player(i));
         }
+        console.log(this.players)
         this.bomb = {};
     }
 
