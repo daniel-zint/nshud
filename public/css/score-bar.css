@@ -80,7 +80,7 @@
     background: var(--color_background_default);
     font-size: 0.5em;
     display: grid !important;
-    grid-template-columns: repeat(15, 1fr);
+    grid-template-columns: repeat(17, 1fr);
     height: auto !important;
     overflow: hidden;
     transition: all 1s linear 1s;

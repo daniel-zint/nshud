@@ -98,7 +98,7 @@ function updateScoreBar(data) {
     }
 
     // map win dots
-    for (let i = 0; i < 3; ++i) {
+    for (let i = 1; i < 3; ++i) {
         if (i in teamInfo.maps) {
             const m = teamInfo.maps[i];
             if (m.win === "1") {
@@ -112,7 +112,7 @@ function updateScoreBar(data) {
             if (m.win === "2") {
                 $(`#team_right_map_${i}`).find('.dot-win').removeClass()
                     .addClass('dot-win')
-                    .addClass(data?.players[6]?.team === "CT" ? "color_ct" : "color_t");
+                    .addClass(data?.players[3]?.team === "CT" ? "color_ct" : "color_t");
             } else {
                 $(`#team_right_map_${i}`).find('.dot-win').removeClass()
                     .addClass('dot-win color_white');
@@ -138,7 +138,7 @@ function updateScoreBar(data) {
     }
 
     // round wins
-    if (data.phase_countdowns.phase === "freezetime") {
+    if (data.phase_countdowns.phase === "freezetime" && data.team_ct.score + data.team_t.score < 16) {
         for (const [key, value] of Object.entries(data.round_wins)) {
             $(`#round_wins_${key}`).find('span').css('background-color', value[0] === 't' ? colors.t : colors.ct);
         }

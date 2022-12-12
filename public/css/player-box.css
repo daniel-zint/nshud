@@ -28,7 +28,7 @@ ul.team-list > li {
 }
 
 .player-container-row {
-    height: 1.2em;
+    height: 4em;
     display: grid;
     grid-gap: 0px;
     padding: 5px;
