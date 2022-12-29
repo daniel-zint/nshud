@@ -1,50 +1,50 @@
 .left {
-    left:0;
-    margin-left:var(--margin-left-right);
+  left: 0;
+  margin-left: var(--margin-left-right);
 }
 
 .right {
-    right:0;
-    margin-right:var(--margin-left-right);
+  right: 0;
+  margin-right: var(--margin-left-right);
 }
 
 /* team-list design */
 ul.team-list {
-    width:20%;
-    position: fixed;
-    bottom:0;
-    margin-bottom:10px;
-    list-style-type: none;
-    padding: 0;
+  width: 20%;
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 10px;
+  list-style-type: none;
+  padding: 0;
 }
 ul.team-list > li {
-    margin-top:10px;
-    margin-bottom:10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .player-container {
-    display: grid;
-    grid-template-columns: 0px 1fr;
+  display: grid;
+  grid-template-columns: 0px 1fr;
 }
 
 .player-container-row {
-    height: 1.2em;
-    display: grid;
-    grid-gap: 0px;
-    padding: 5px;
-    align-items: center;
+  height: 1.2em;
+  display: grid;
+  grid-gap: 0px;
+  padding: 5px;
+  align-items: center;
 }
 
 .left .player-container-row {
-    justify-items: start;
+  justify-items: start;
 }
 
 .right .player-container-row {
-    justify-items: end;
+  justify-items: end;
 }
 
 .left .player-container-row.one {
-    grid-template-columns: 
+  grid-template-columns:
     2em /* health */
     1em /* id */
     1fr /* name */
@@ -53,7 +53,7 @@ ul.team-list > li {
 }
 
 .right .player-container-row.one {
-    grid-template-columns: 
+  grid-template-columns:
     5em /* primary */
     2em /* round-kills */
     1fr /* name */
@@ -62,146 +62,153 @@ ul.team-list > li {
 }
 
 .player-container-row.two {
-    background-color: var(--color_background_default);
-    font-size: 1em;
+  background-color: var(--color_background_default);
+  font-size: 1em;
 }
 
 .left .player-container-row.two {
-    grid-template-columns: 
-        2.5em /* armor,bomb,kit */
-        4em /* money */
-        4.5em /* K/D */
-        2em /* taser */
-        4em /* nades */
-        1fr /* secondary */;
+  grid-template-columns:
+    2.5em /* armor,bomb,kit */
+    4em /* money */
+    4.5em /* K/D */
+    2em /* taser */
+    4em /* nades */
+    1fr /* secondary */;
 }
 
 .right .player-container-row.two {
-    grid-template-columns: 
-        1fr /* secondary */
-        4em /* nades */
-        2em /* taser */
-        4.5em /* K/D */
-        4em /* money */
-        2.5em;/* armor,bomb,kit */
+  grid-template-columns:
+    1fr /* secondary */
+    4em /* nades */
+    2em /* taser */
+    4.5em /* K/D */
+    4em /* money */
+    2.5em; /* armor,bomb,kit */
 }
 
 /* align weapons to the 'end' of their container*/
-.left .primary, .left .secondary {
-    justify-self: right;
+.left .primary,
+.left .secondary {
+  justify-self: right;
 }
 
-.right .primary, .right .secondary {
-    justify-self: left;
+.right .primary,
+.right .secondary {
+  justify-self: left;
 }
 
 .money-container {
-    display: grid;
-    grid-template-columns: 0.7em 2.5em;
-    justify-items: stretch;
+  display: grid;
+  grid-template-columns: 0.7em 2.5em;
+  justify-items: stretch;
 }
 
 .kd-container {
-    display: grid;
-    grid-template-columns: 
-    0.8em 
-    1.4em /* this controls the distance between K and D*/ 
+  display: grid;
+  grid-template-columns:
+    0.8em
+    1.4em /* this controls the distance between K and D*/
     0.8em
     1.1em;
-    grid-gap: 0px;
-    justify-items: start;
+  grid-gap: 0px;
+  justify-items: start;
 }
 
 .player-id {
-    font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.7);
-    align-self: baseline;
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.7);
+  align-self: baseline;
 }
 
 .player-name {
-    width: 10em;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  width: 10em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .right .player-name {
-    text-align: right;
+  text-align: right;
 }
 
-.K, .D, .A {
-    color: #ffcf77;
+.K,
+.D,
+.A {
+  color: #ffcf77;
 }
 
-.kills, .deaths, .assists {
-    text-align: left;
+.kills,
+.deaths,
+.assists {
+  text-align: left;
 }
 
 .nade-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    justify-items: center;
-    align-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  align-items: center;
 }
 
 .nade {
-    width: 1em;
-    height: 0.7em;
-    position: relative;
+  width: 1em;
+  height: 0.7em;
+  position: relative;
 }
 
 .nade-img {
-    position: absolute;
-    bottom: 0%;
-    left: 50%;
-    transform: translateX(-50%);
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .dollar {
-    color: rgb(0, 100, 0);
+  color: rgb(0, 100, 0);
 }
 
-
 .avatar {
-    grid-area: 1 / 1 / 3 / 2;
+  grid-area: 1 / 1 / 3 / 2;
 }
 
 .row1-background {
-    height: 100%;
-    width: 100%;
-    background-color:rgb(1, 68, 1);
-    position: relative;
-    overflow: hidden;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(1, 68, 1);
+  position: relative;
+  overflow: hidden;
 }
 
 .row1-teamcolor {
-    height: 100%;
-    width: 100%;
-    background: black;
-    position: absolute;
-    overflow: hidden;
-    transition: width 0.01s;
-    z-index: 1;
+  height: 100%;
+  width: 100%;
+  background: black;
+  position: absolute;
+  overflow: hidden;
+  transition: width 0.01s;
+  z-index: 1;
 }
 
 .row1-red {
-    height: 100%;
-    width: 100%;
-    background-color: var(--color_damage);
-    position: absolute;
-    transition: width 0.3s;
-    transition-delay: 2s;
+  height: 100%;
+  width: 100%;
+  background-color: var(--color_damage);
+  position: absolute;
+  transition: width 0.3s;
+  transition-delay: 2s;
 }
 
-.left .row1-teamcolor, .left .row1-red {
-    left:0;
+.left .row1-teamcolor,
+.left .row1-red {
+  left: 0;
 }
 
-.right .row1-teamcolor, .right .row1-red {
-    right:0;
+.right .row1-teamcolor,
+.right .row1-red {
+  right: 0;
 }
 
 .player-container-row.one {
-    background-color: rgba(0,0,0,0);
-    position: relative;
-    z-index: 100;
+  background-color: rgba(0, 0, 0, 0);
+  position: relative;
+  z-index: 100;
 }
