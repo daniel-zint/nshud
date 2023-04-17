@@ -31,7 +31,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 1.5rem;
+  height: 2rem;
   padding: 5px 5px 5px 5px;
 }
 
@@ -113,7 +113,7 @@
 
 .dot-win {
   width: 0.3em;
-  height: 0.6em;
+  height: 0.4em;
   border-radius: 25%;
   display: inline-block;
 }
@@ -135,11 +135,11 @@
 }
 
 .map-win.n1 {
-  top: 0.5em;
+  top: 0.4em;
 }
 
 .map-win.n2 {
-  bottom: 0.5em;
+  bottom: 0.6em;
 }
 
 .map-win.n1.l {
