@@ -68,13 +68,13 @@ function addAllPlayerBoxes() {
     $("#team_left").empty();
     $("#team_right").empty();
 
-    for (let i = 1; i < 6; ++i) {
+    for (let i = 0; i < 5; ++i) {
         $("#team_left").append(addPlayerBox(i, false));
     }
-    for (let i = 6; i < 10; ++i) {
+    for (let i = 5; i < 10; ++i) {
         $("#team_right").append(addPlayerBox(i, true));
     }
-    $("#team_right").append(addPlayerBox(0, true));
+    //$("#team_right").append(addPlayerBox(0, true));
 }
 
 addAllPlayerBoxes();
@@ -238,11 +238,10 @@ function updateAllPlayerBoxes(data) {
     if (data === undefined || !("players" in data)) {
         return;
     }
-    for (let i = 1; i < 6; ++i) {
+    for (let i = 0; i < 5; ++i) {
         updatePlayerBox(data.players[i], false);
     }
-    for (let i = 6; i < 10; ++i) {
+    for (let i = 5; i < 10; ++i) {
         updatePlayerBox(data.players[i], true);
     }
-    updatePlayerBox(data.players[0], true);
 }

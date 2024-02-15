@@ -5,5 +5,5 @@
     "show_player_avatars": true,
     "steam_api_key": "",
 
-    "use_telnet": true
+  "use_telnet": false
 }
