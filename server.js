@@ -61,7 +61,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send-avatar", (steamid) => {
-    if (!("steam_api_key" in config)) {
+    if (!config.show_player_avatars || !("steam_api_key" in config)) {
       return;
     }
     let url = `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${config.steam_api_key}&steamids=${steamid}`;
