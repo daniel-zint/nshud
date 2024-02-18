@@ -1,7 +1,7 @@
-# nshud - A Simple Spectator Hud for CS:GO
+# nshud - A Simple Spectator Hud for CS2
 ![nshud example](nshud-example.png)
 ## Background
-This hud is designed for all the CS:GO casters that are desperately looking for **free** a custom spectator hud. I created this hud in my free time and I want to share it with you. It is equipped with an MIT license so that you can use and modify it in any way you want.
+This hud is designed for all the CS2 casters that are desperately looking for **free** a custom spectator hud. I created this hud in my free time and I want to share it with you. It is equipped with an MIT license so that you can use and modify it in any way you want.
 
 Please consider that I am not a web developer and therefore the code is most probably garbage. Nevertheless, it works, so it is good enough for me. If you feel like something could be implemented smarter, please let me know and I will take it in consideration.
 
@@ -18,7 +18,7 @@ See [CS:GO Game State Integration](https://developer.valvesoftware.com/wiki/Coun
 
 The hud runs now as a website at [http://localhost:8000](http://localhost:8000).
 
-### Telnet
+### Telnet (does not work in CS2 anymore 😢)
 The CS:GO console can be accessed with the telnet protocol. You need to add the following to your CS:GO Launch Options:
 ```
 -netconport 2121
@@ -47,6 +47,6 @@ Unfortunately, for displaying the player avatars you need to get one of these ke
 I use the [boltobserv](https://github.com/boltgolt/boltobserv) radar and added my config to this repository.
 
 # Setup for Cast
-I use OBS for casting. The hud and radar are added as browser sources. For setting up CS:GO I use the *caston.cfg*/*castoff.cfg* configs that basically just turn the CS:GO hud on and off.
+I use OBS for casting. The hud and radar are added as browser sources. For setting up CS2 I use the *caston.cfg*/*castoff.cfg* configs that basically just turn the CS2 hud on and off.
 
 If you have any questions regarding the OBS setup, please let me know.
