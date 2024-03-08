@@ -1,6 +1,10 @@
 function updateTeamInfo() {
-  $("#team_name_left").html(getSafe(() => teamInfo.team1.name, "Team 1"));
-  $("#team_name_right").html(getSafe(() => teamInfo.team2.name, "Team 2"));
+  $("#team_name_left").html(
+    `<b>${getSafe(() => teamInfo.team1.name, "Team 1")}</b>`
+  );
+  $("#team_name_right").html(
+    `<b>${getSafe(() => teamInfo.team2.name, "Team 2")}</b>`
+  );
   $("#team_left_avatar").html(
     $("<img></img>")
       .prop(
