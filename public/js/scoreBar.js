@@ -109,32 +109,34 @@ function updateScoreBar(data) {
   }
 
   // map win dots
-  for (let i = 0; i < 3; ++i) {
-    if (i in teamInfo.maps) {
-      const m = teamInfo.maps[i];
-      if (m.win === "1") {
-        $(`#team_left_map_${i}`)
-          .find(".dot-win")
-          .removeClass()
-          .addClass("dot-win")
-          .addClass(data?.players[1]?.team === "CT" ? "color_ct" : "color_t");
-      } else {
-        $(`#team_left_map_${i}`)
-          .find(".dot-win")
-          .removeClass()
-          .addClass("dot-win color_white");
-      }
-      if (m.win === "2") {
-        $(`#team_right_map_${i}`)
-          .find(".dot-win")
-          .removeClass()
-          .addClass("dot-win")
-          .addClass(data?.players[6]?.team === "CT" ? "color_ct" : "color_t");
-      } else {
-        $(`#team_right_map_${i}`)
-          .find(".dot-win")
-          .removeClass()
-          .addClass("dot-win color_white");
+  if (teamInfo.maps !== undefined && config.show_team_avatars) {
+    for (let i = 0; i < 3; ++i) {
+      if (i in teamInfo.maps) {
+        const m = teamInfo.maps[i];
+        if (m.win === "1") {
+          $(`#team_left_map_${i}`)
+            .find(".dot-win")
+            .removeClass()
+            .addClass("dot-win")
+            .addClass(data?.players[1]?.team === "CT" ? "color_ct" : "color_t");
+        } else {
+          $(`#team_left_map_${i}`)
+            .find(".dot-win")
+            .removeClass()
+            .addClass("dot-win color_white");
+        }
+        if (m.win === "2") {
+          $(`#team_right_map_${i}`)
+            .find(".dot-win")
+            .removeClass()
+            .addClass("dot-win")
+            .addClass(data?.players[6]?.team === "CT" ? "color_ct" : "color_t");
+        } else {
+          $(`#team_right_map_${i}`)
+            .find(".dot-win")
+            .removeClass()
+            .addClass("dot-win color_white");
+        }
       }
     }
   }
