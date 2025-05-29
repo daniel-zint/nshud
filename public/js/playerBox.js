@@ -153,10 +153,11 @@ function updateHealthBar(id, h, team_t = false, right2left = false) {
 function updatePlayerBox(p, right2left = false) {
   const id = p.observer_slot;
 
+  const hotkeyId = id === 9 ? 0 : id + 1
   if (right2left) {
-    $(`#player_id_${id}`).html(`|${id}`);
+    $(`#player_id_${id}`).html(`|${hotkeyId}`);
   } else {
-    $(`#player_id_${id}`).html(`${id}|`);
+    $(`#player_id_${id}`).html(`${hotkeyId}|`);
   }
 
   $(`#player_name_${id}`).html(`<b>${p.name}</b>`);
